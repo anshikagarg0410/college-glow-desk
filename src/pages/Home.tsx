@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navigation from "@/components/Navigation";
 import collegeBackground from "@/assets/college-background.jpg";
+import logo from "@/assets/logo.png";
 import {
   BookOpen,
   Calculator,
@@ -64,15 +65,17 @@ const Home = () => {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${collegeBackground})` }}
         />
-        <div className="absolute inset-0 bg-white/85"></div>
+        <div className="absolute inset-0 bg-white/70"></div>
         <div className="relative max-w-7xl mx-auto px-4 py-20 text-center">
           <div className="mb-12">
-            <div className="inline-flex items-center gap-3 mb-8">
-              <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-lg">
-                <GraduationCap className="h-10 w-10 text-primary-foreground" />
-              </div>
+            <div className="inline-flex items-center gap-4 mb-8">
+              <img 
+                src={logo} 
+                alt="StudyHub IGDTUW" 
+                className="w-20 h-20 md:w-24 md:h-24 object-contain"
+              />
               <div className="text-left">
-                <h1 className="text-6xl md:text-7xl font-bold text-primary mb-2">
+                <h1 className="text-5xl md:text-6xl font-bold text-primary mb-2">
                   StudyHub
                 </h1>
                 <p className="text-lg text-muted-foreground font-medium">IGDTUW</p>
