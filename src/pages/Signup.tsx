@@ -29,7 +29,7 @@ const Signup = () => {
 
   const years = ["1st Year", "2nd Year", "3rd Year", "4th Year"];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (formData.password !== formData.confirmPassword) {
@@ -182,7 +182,7 @@ const Signup = () => {
                 id="terms"
                 checked={formData.terms}
                 onCheckedChange={(checked) => 
-                  setFormData({ ...formData, terms: checked })
+                  setFormData({ ...formData, terms: checked as boolean })
                 }
                 required
               />

@@ -52,8 +52,8 @@ const Hackathons = () => {
     }
   ];
 
-  const HackathonCard = ({ hackathon }) => {
-    const getStatusColor = (status) => {
+  const HackathonCard = ({ hackathon }: { hackathon: any }) => {
+    const getStatusColor = (status: string) => {
       switch (status) {
         case "Registrations Open": return "bg-green-100 text-green-700";
         case "Early Bird": return "bg-blue-100 text-blue-700";
@@ -62,7 +62,7 @@ const Hackathons = () => {
       }
     };
 
-    const getDifficultyColor = (difficulty) => {
+    const getDifficultyColor = (difficulty: string) => {
       switch (difficulty) {
         case "Beginner": return "border-green-500 text-green-600";
         case "Intermediate": return "border-blue-500 text-blue-600";

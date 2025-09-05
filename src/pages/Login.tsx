@@ -17,7 +17,7 @@ const Login = () => {
     remember: false
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic here
     toast.success("Login functionality will be implemented with backend integration");
@@ -83,7 +83,7 @@ const Login = () => {
                   id="remember"
                   checked={formData.remember}
                   onCheckedChange={(checked) => 
-                    setFormData({ ...formData, remember: checked })
+                    setFormData({ ...formData, remember: checked as boolean })
                   }
                 />
                 <Label htmlFor="remember" className="text-sm">Remember me</Label>
