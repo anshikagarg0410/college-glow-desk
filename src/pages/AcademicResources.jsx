@@ -50,19 +50,19 @@ const AcademicResources = () => {
   };
 
   const getSubjects = () => {
-    const yearData = subjectData[selectedYear as keyof typeof subjectData];
+    const yearData = subjectData[selectedYear];
     if (!yearData) return { sem1: [], sem2: [] };
     
     const semesterKeys = Object.keys(yearData);
     return {
-      sem1: yearData[semesterKeys[0] as keyof typeof yearData] || [],
-      sem2: yearData[semesterKeys[1] as keyof typeof yearData] || []
+      sem1: yearData[semesterKeys[0]] || [],
+      sem2: yearData[semesterKeys[1]] || []
     };
   };
 
   const subjects = getSubjects();
 
-  const ResourceCard = ({ subject }: { subject: string }) => (
+  const ResourceCard = ({ subject }) => (
     <Card className="p-6 hover:shadow-academic transition-all duration-300">
       <div className="flex items-start justify-between mb-4">
         <div>

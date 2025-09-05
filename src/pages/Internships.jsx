@@ -48,7 +48,7 @@ const Internships = () => {
     }
   ];
 
-  const InternshipCard = ({ internship }: { internship: any }) => (
+  const InternshipCard = ({ internship }) => (
     <Card className="p-6 hover:shadow-academic transition-all duration-300">
       <div className="flex items-start justify-between mb-4">
         <div>
@@ -81,7 +81,7 @@ const Internships = () => {
         <div>
           <p className="text-sm text-muted-foreground mb-2">Required Skills:</p>
           <div className="flex flex-wrap gap-1">
-            {internship.skills.map((skill: string, i: number) => (
+            {internship.skills.map((skill, i) => (
               <Badge key={i} variant="outline" className="text-xs">
                 {skill}
               </Badge>

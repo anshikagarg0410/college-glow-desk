@@ -40,7 +40,7 @@ const Scholarships = () => {
     }
   ];
 
-  const ScholarshipCard = ({ scholarship }: { scholarship: any }) => (
+  const ScholarshipCard = ({ scholarship }) => (
     <Card className="p-6 hover:shadow-academic transition-all duration-300">
       <div className="flex items-start justify-between mb-4">
         <div>

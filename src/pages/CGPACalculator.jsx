@@ -9,18 +9,11 @@ import { Badge } from "@/components/ui/badge";
 import { Calculator, Plus, Trash2, BookOpen } from "lucide-react";
 import { toast } from "sonner";
 
-interface Subject {
-  id: string;
-  name: string;
-  credits: number;
-  grade: string;
-}
-
 const CGPACalculator = () => {
-  const [subjects, setSubjects] = useState<Subject[]>([
+  const [subjects, setSubjects] = useState([
     { id: "1", name: "", credits: 0, grade: "" }
   ]);
-  const [cgpa, setCGPA] = useState<number | null>(null);
+  const [cgpa, setCGPA] = useState(null);
 
   const gradePoints = {
     "O": 10,
@@ -37,13 +30,13 @@ const CGPACalculator = () => {
     setSubjects([...subjects, { id: newId, name: "", credits: 0, grade: "" }]);
   };
 
-  const removeSubject = (id: string) => {
+  const removeSubject = (id) => {
     if (subjects.length > 1) {
       setSubjects(subjects.filter(s => s.id !== id));
     }
   };
 
-  const updateSubject = (id: string, field: keyof Subject, value: string | number) => {
+  const updateSubject = (id, field, value) => {
     setSubjects(subjects.map(s => 
       s.id === id ? { ...s, [field]: value } : s
     ));
@@ -55,7 +48,7 @@ const CGPACalculator = () => {
 
     for (const subject of subjects) {
       if (subject.name && subject.credits > 0 && subject.grade) {
-        const points = gradePoints[subject.grade as keyof typeof gradePoints];
+        const points = gradePoints[subject.grade];
         totalGradePoints += points * subject.credits;
         totalCredits += subject.credits;
       }
@@ -76,7 +69,7 @@ const CGPACalculator = () => {
     setCGPA(null);
   };
 
-  const getCGPAColor = (cgpa: number) => {
+  const getCGPAColor = (cgpa) => {
     if (cgpa >= 9) return "text-green-600";
     if (cgpa >= 8) return "text-blue-600";
     if (cgpa >= 7) return "text-yellow-600";
@@ -84,7 +77,7 @@ const CGPACalculator = () => {
     return "text-red-600";
   };
 
-  const getCGPAGrade = (cgpa: number) => {
+  const getCGPAGrade = (cgpa) => {
     if (cgpa >= 9) return "Excellent";
     if (cgpa >= 8) return "Very Good";
     if (cgpa >= 7) return "Good";
