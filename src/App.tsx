@@ -10,6 +10,9 @@ import SubjectResources from "./pages/SubjectResources";
 import ResourceDetail from "./pages/ResourceDetail";
 import NotFound from "./pages/NotFound";
 import ComingSoon from "./pages/ComingSoon";
+import AdminUpload from "./pages/AdminUpload";
+// If the file exists elsewhere, update the path accordingly, e.g.:
+// import AdminUpload from "./admin/AdminUpload";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +37,7 @@ const App = () => (
           <Route path="/scholarships" element={<ComingSoon />} />
           <Route path="/internships" element={<ComingSoon />} />
           <Route path="/hackathons" element={<ComingSoon />} />
+          <Route path="/admin-upload" element={<AdminUpload />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

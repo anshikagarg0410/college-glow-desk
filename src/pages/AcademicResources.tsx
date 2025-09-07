@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,10 +14,52 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { BookOpen, ArrowRight, GraduationCap } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const ResourceCard = ({
+  subject,
+  selectedBranch,
+  selectedYear,
+}: {
+  subject: any;
+  selectedBranch: string;
+  selectedYear: string;
+}) => (
+  <Card className="p-6 hover:shadow-academic transition-all duration-300 flex flex-col justify-between">
+    <div>
+      <div className="flex items-start justify-between mb-4">
+        <div>
+          <h3 className="text-lg font-semibold mb-2">{subject.name}</h3>
+          <Badge variant="secondary" className="mb-3">
+            {selectedBranch} - Year {selectedYear}
+          </Badge>
+        </div>
+        <BookOpen className="h-6 w-6 text-primary" />
+      </div>
+    </div>
+    <div className="mt-4">
+      <Button asChild className="w-full">
+        <Link
+          to={`/academic/${encodeURIComponent(
+            selectedBranch
+          )}/${encodeURIComponent(selectedYear)}/${encodeURIComponent(
+            subject.name
+          )}`}
+        >
+          View Resources
+          <ArrowRight className="h-4 w-4 ml-2" />
+        </Link>
+      </Button>
+    </div>
+  </Card>
+);
 
 const AcademicResources = () => {
   const [selectedBranch, setSelectedBranch] = useState("CSE");
   const [selectedYear, setSelectedYear] = useState("1");
+  const [subjects, setSubjects] = useState<{ sem1: any[]; sem2: any[] } | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const branches = [
     "CSE",
@@ -35,264 +78,31 @@ const AcademicResources = () => {
     { value: "4", label: "4th Year" },
   ];
 
-  const subjectData = {
-    CSE: {
-      "1": {
-        "1": [
-          "Applied Mathematics",
-          "Applied Physics",
-          "Programming with C",
-          "Cyber Security Awareness",
-          "IT Workshop",
-          "Introduction to Data Science",
-          "Basics of Electrical and Electronics Engineering",
-          "Electrical and Hybrid Vehicle Technology",
-          "Energy Conversion Systems",
-          "Introduction to Robotics",
-          "Web Application Development",
-          "Communication Skills",
-        ],
-        "2": [
-          "Probability and Statistics",
-          "Environmental Sciences",
-          "Data Structures",
-          "Cyber Security Awareness",
-          "IT Workshop",
-          "Introduction to Data Science",
-          "Basics of Electrical and Electronics Engineering",
-          "Electrical and Hybrid Vehicle Technology",
-          "Energy Conversion Systems",
-          "Introduction to Robotics",
-          "Mobile Application Development",
-          "Soft Skills and Personality Development",
-        ],
-      },
-    },
-    "CSE-AI": {
-      "1": {
-        "1": [
-          "Probability and Statistics",
-          "Environmental Sciences",
-          "Programming with Python",
-          "Cyber Security Awareness",
-          "Web Application Development",
-          "Basics of Electrical and Electronics Engineering",
-          "Electrical and Hybrid Vehicle Technology",
-          "Energy Conversion Systems",
-          "Introduction to Robotics",
-          "IT Workshop",
-          "Communication Skills",
-        ],
-        "2": [
-          "Applied Mathematics",
-          "Applied Physics",
-          "Data Structures",
-          "Cyber Security Awareness",
-          "Web Application Development",
-          "Basics of Electrical and Electronics Engineering",
-          "Electrical and Hybrid Vehicle Technology",
-          "Energy Conversion Systems",
-          "Introduction to Robotics",
-          "Introduction to Data Science",
-          "Soft Skills and Personality Development",
-        ],
-      },
-    },
-    ECE: {
-      "1": {
-        "1": [
-          "Applied Mathematics",
-          "Fundamentals of Electrical Sciences",
-          "Signals and Systems",
-          "Programming Fundamentals",
-          "Cyber Security Awareness",
-          "Web Application Development",
-          "Introduction to Data Science",
-          "Electrical and Hybrid Vehicle Technology",
-          "Energy Conversion Systems",
-          "Introduction to Robotics",
-          "Electronics Workshop",
-          "Communication Skills",
-        ],
-        "2": [
-          "Environmental Sciences",
-          "Applied Physics",
-          "Network Analysis and Synthesis",
-          "Programming Fundamentals",
-          "Cyber Security Awareness",
-          "Web Application Development",
-          "Introduction to Data Science",
-          "Electrical and Hybrid Vehicle Technology",
-          "Energy Conversion Systems",
-          "Introduction to Robotics",
-          "IT Workshop",
-          "Soft Skills and Personality Development",
-        ],
-      },
-    },
-    "ECE-AI": {
-      "1": {
-        "1": [
-          "Applied Mathematics",
-          "Fundamentals of Electrical Sciences",
-          "Signals and Systems",
-          "Programming Fundamentals",
-          "Cyber Security Awareness",
-          "Web Application Development",
-          "Introduction to Data Science",
-          "Electrical and Hybrid Vehicle Technology",
-          "Energy Conversion Systems",
-          "Introduction to Robotics",
-          "Electronics Workshop",
-          "Communication Skills",
-        ],
-        "2": [
-          "Environmental Sciences",
-          "Applied Physics",
-          "Network Analysis and Synthesis",
-          "Programming Fundamentals",
-          "Cyber Security Awareness",
-          "Web Application Development",
-          "Introduction to Data Science",
-          "Electrical and Hybrid Vehicle Technology",
-          "Energy Conversion Systems",
-          "Introduction to Robotics",
-          "IT Workshop",
-          "Soft Skills and Personality Development",
-        ],
-      },
-    },
-    IT: {
-      "1": {
-        "1": [
-          "Applied Mathematics",
-          "Applied Physics",
-          "Programming with Python",
-          "IT Workshop",
-          "Basics of Electrical and Electronics Engineering",
-          "Electrical and Hybrid Vehicle Technology",
-          "Energy Conversion Systems",
-          "Introduction to Robotics",
-          "Web Application Development",
-          "Communication Skills",
-        ],
-        "2": [
-          "Probability and Statistics",
-          "Environmental Sciences",
-          "Object Oriented Programming",
-          "IT Workshop",
-          "Basics of Electrical and Electronics Engineering",
-          "Electrical and Hybrid Vehicle Technology",
-          "Energy Conversion Systems",
-          "Introduction to Robotics",
-          "Introduction to Data Science",
-          "Soft Skills and Personality Development",
-        ],
-      },
-    },
-    "AI&ML": {
-      "1": {
-        "1": [
-          "Probability and Statistics",
-          "Environmental Sciences",
-          "Programming with Python",
-          "IT Workshop",
-          "Basics of Electrical and Electronics Engineering",
-          "Electrical and Hybrid Vehicle Technology",
-          "Energy Conversion Systems",
-          "Introduction to Robotics",
-          "Web Application Development",
-          "Communication Skills",
-        ],
-        "2": [
-          "Applied Mathematics",
-          "Applied Physics",
-          "Object Oriented Programming",
-          "IT Workshop",
-          "Basics of Electrical and Electronics Engineering",
-          "Electrical and Hybrid Vehicle Technology",
-          "Energy Conversion Systems",
-          "Introduction to Robotics",
-          "Introduction to Data Science",
-          "Soft Skills and Personality Development",
-        ],
-      },
-    },
-    "MAE/DMAM": {
-      "1": {
-        "1": [
-          "Applied Mathematics",
-          "Applied Physics",
-          "Elements of Mechanical Engineering",
-          "Basics of Electrical and Electronics Engineering",
-          "Programming Fundamentals",
-          "Introduction to Data Science",
-          "Web Application Development",
-          "Cyber Security Awareness",
-          "Workshop Practice",
-          "Communication Skills",
-        ],
-        "2": [
-          "Probability and Statistics",
-          "Environmental Sciences",
-          "Engineering Mechanics",
-          "Basics of Electrical and Electronics Engineering",
-          "Programming Fundamentals",
-          "Introduction to Data Science",
-          "Web Application Development",
-          "Cyber Security Awareness",
-          "Engineering Graphics & CAD Modelling",
-          "Soft Skills and Personality Development",
-        ],
-      },
-    },
-  };
-
-  const getSubjects = () => {
-    const branchData = subjectData[selectedBranch as keyof typeof subjectData];
-    if (!branchData) return { sem1: [], sem2: [] };
-
-    const yearData = branchData[selectedYear as keyof typeof branchData];
-    if (!yearData) return { sem1: [], sem2: [] };
-
-    const semesterKeys = Object.keys(yearData);
-    return {
-      sem1: yearData[semesterKeys[0] as keyof typeof yearData] || [],
-      sem2: yearData[semesterKeys[1] as keyof typeof yearData] || [],
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await axios.get<{ sem1: any[]; sem2: any[] }>(
+          `http://localhost:5000/api/academic/subjects`,
+          {
+            params: {
+              branch: selectedBranch,
+              year: selectedYear,
+            },
+          }
+        );
+        setSubjects(res.data);
+      } catch (err: any) {
+        setError(err.message);
+        console.error("Failed to fetch subjects:", err);
+      } finally {
+        setLoading(false);
+      }
     };
-  };
 
-  const subjects = getSubjects();
-
-  const ResourceCard = ({ subject }: { subject: string }) => (
-    <Card className="p-6 hover:shadow-academic transition-all duration-300 flex flex-col justify-between">
-      <div>
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <h3 className="text-lg font-semibold mb-2">{subject}</h3>
-            <Badge variant="secondary" className="mb-3">
-              {selectedBranch} - Year {selectedYear}
-            </Badge>
-          </div>
-          <BookOpen className="h-6 w-6 text-primary" />
-        </div>
-      </div>
-      <div className="mt-4">
-        <Button asChild className="w-full">
-          <Link
-            to={`/academic/${encodeURIComponent(
-              selectedBranch
-            )}/${encodeURIComponent(selectedYear)}/${encodeURIComponent(
-              subject
-            )}`}
-          >
-            View Resources
-            <ArrowRight className="h-4 w-4 ml-2" />
-          </Link>
-        </Button>
-      </div>
-    </Card>
-  );
+    fetchSubjects();
+  }, [selectedBranch, selectedYear]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -354,32 +164,70 @@ const AcademicResources = () => {
         </Card>
 
         {/* Subject Resources */}
-        <Tabs defaultValue="sem1" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="sem1">
-              Semester {parseInt(selectedYear) * 2 - 1}
-            </TabsTrigger>
-            <TabsTrigger value="sem2">
-              Semester {parseInt(selectedYear) * 2}
-            </TabsTrigger>
-          </TabsList>
+        {loading ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(6)].map((_, i) => (
+              <Card key={i} className="p-6">
+                <Skeleton className="h-24" />
+              </Card>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="text-center text-red-500">
+            Failed to load resources: {error}
+          </div>
+        ) : (
+          subjects && ( // Add this check
+            <Tabs defaultValue="sem1" className="space-y-6">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="sem1">
+                  Semester {parseInt(selectedYear) * 2 - 1}
+                </TabsTrigger>
+                <TabsTrigger value="sem2">
+                  Semester {parseInt(selectedYear) * 2}
+                </TabsTrigger>
+              </TabsList>
 
-          <TabsContent value="sem1" className="space-y-6">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {subjects.sem1.map((subject, index) => (
-                <ResourceCard key={index} subject={subject} />
-              ))}
-            </div>
-          </TabsContent>
+              <TabsContent value="sem1" className="space-y-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {subjects.sem1.length > 0 ? (
+                    subjects.sem1.map((subject: any) => (
+                      <ResourceCard
+                        key={subject._id}
+                        subject={subject}
+                        selectedBranch={selectedBranch}
+                        selectedYear={selectedYear}
+                      />
+                    ))
+                  ) : (
+                    <p className="col-span-3 text-center text-muted-foreground">
+                      No subjects found for this semester.
+                    </p>
+                  )}
+                </div>
+              </TabsContent>
 
-          <TabsContent value="sem2" className="space-y-6">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {subjects.sem2.map((subject, index) => (
-                <ResourceCard key={index} subject={subject} />
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+              <TabsContent value="sem2" className="space-y-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {subjects.sem2.length > 0 ? (
+                    subjects.sem2.map((subject: any) => (
+                      <ResourceCard
+                        key={subject._id}
+                        subject={subject}
+                        selectedBranch={selectedBranch}
+                        selectedYear={selectedYear}
+                      />
+                    ))
+                  ) : (
+                    <p className="col-span-3 text-center text-muted-foreground">
+                      No subjects found for this semester.
+                    </p>
+                  )}
+                </div>
+              </TabsContent>
+            </Tabs>
+          )
+        )}
       </div>
     </div>
   );

@@ -35,18 +35,15 @@ const SubjectResources = () => {
     icon: React.ElementType;
     slug: string;
   }) => {
-    // URL-friendly version of the resource title
-    const resourcePath = slug;
+    // This creates the correct path, e.g., /academic/CSE/1/Mathematics-I/notes-pdfs
+    const resourcePath = `/academic/${encodeURIComponent(
+      branch!
+    )}/${encodeURIComponent(year!)}/${encodeURIComponent(
+      subject!
+    )}/${slug}`;
 
     return (
-      <Link
-        to={`/academic/${encodeURIComponent(
-          branch!
-        )}/${encodeURIComponent(year!)}/${encodeURIComponent(
-          subject!
-        )}/${resourcePath}`}
-        className="block"
-      >
+      <Link to={resourcePath} className="block">
         <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg hover:bg-accent transition-colors">
           <div className="flex items-center gap-3">
             <Icon className="h-5 w-5 text-primary" />
