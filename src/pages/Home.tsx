@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navigation from "@/components/Navigation";
-import collegeBackground from "@/assets/college-background.jpg";
-import logo from "@/assets/logo.png";
+import collegeBackground from "@/assets/image.png";
+
 import {
   BookOpen,
   Calculator,
@@ -58,10 +58,10 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-[90vh] flex items-center">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${collegeBackground})` }}
         />
@@ -69,12 +69,7 @@ const Home = () => {
         <div className="relative max-w-7xl mx-auto px-4 py-20 text-center">
           <div className="mb-12">
             <div className="inline-flex items-center gap-4 mb-8">
-              <img 
-                src={logo} 
-                alt="StudyHub IGDTUW" 
-                className="w-20 h-20 md:w-24 md:h-24 object-contain"
-              />
-              <div className="text-left">
+              <div className="text-center">
                 <h1 className="text-5xl md:text-6xl font-bold text-primary mb-2">
                   StudyHub
                 </h1>
@@ -92,11 +87,28 @@ const Home = () => {
                 <ArrowRight className="ml-3 h-6 w-6" />
               </Button>
             </Link>
-            <Link to="/signup">
-              <Button size="lg" variant="outline" className="text-xl px-10 py-4 rounded-xl border-2">
-                Get Started Free
-              </Button>
-            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Branches Section */}
+      <section className="py-24 px-4 bg-muted/20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-foreground mb-6">
+              All Branches Covered
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              Comprehensive resources for every engineering discipline
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
+            {branches.map((branch, index) => (
+              <Badge key={index} variant="secondary" className="text-xl py-3 px-6 rounded-full font-medium">
+                {branch}
+              </Badge>
+            ))}
           </div>
         </div>
       </section>
@@ -136,30 +148,10 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Branches Section */}
-      <section className="py-24 px-4 bg-muted/20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-6">
-              All Branches Covered
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Comprehensive resources for every engineering discipline
-            </p>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
-            {branches.map((branch, index) => (
-              <Badge key={index} variant="secondary" className="text-xl py-3 px-6 rounded-full font-medium">
-                {branch}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* Premium Section */}
-      <section className="py-24 px-4">
+      {/* <section className="py-24 px-4">
         <div className="max-w-5xl mx-auto">
           <Card className="p-12 bg-gradient-to-r from-premium-gold/15 to-primary/15 border-premium-gold/30 border-2">
             <div className="text-center">
@@ -168,7 +160,7 @@ const Home = () => {
               <p className="text-2xl text-muted-foreground mb-12">
                 Unlock exclusive opportunities for just ₹9
               </p>
-              
+
               <div className="grid md:grid-cols-2 gap-8 mb-12">
                 <div className="flex items-center gap-4 text-lg">
                   <Star className="h-6 w-6 text-premium-gold flex-shrink-0" />
@@ -194,22 +186,22 @@ const Home = () => {
             </div>
           </Card>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
-      <footer className="bg-card border-t border-border py-12 px-4">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <BookOpen className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <h3 className="text-xl font-bold text-primary">StudyHub</h3>
-          </div>
-          <p className="text-muted-foreground">
-            Empowering students with comprehensive academic resources and opportunities.
-          </p>
-        </div>
-      </footer>
+<footer className="bg-green-50 border-t border-border py-12 px-4">
+  <div className="max-w-7xl mx-auto text-center">
+    <div className="flex items-center justify-center gap-3 mb-4">
+      <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+        <BookOpen className="h-5 w-5 text-primary-foreground" />
+      </div>
+      <h3 className="text-xl font-bold text-primary">StudyHub</h3>
+    </div>
+    <p className="text-muted-foreground">
+      Empowering students with comprehensive academic resources and opportunities.
+    </p>
+  </div>
+</footer>
     </div>
   );
 };

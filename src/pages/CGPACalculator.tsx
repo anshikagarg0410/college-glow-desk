@@ -202,18 +202,23 @@ const CGPACalculator = () => {
 
           {/* Result */}
           <div className="space-y-6">
-            {cgpa !== null && (
-              <Card className="p-6 text-center bg-gradient-primary text-primary-foreground">
-                <h3 className="text-xl font-semibold mb-4">Your CGPA</h3>
-                <div className="text-5xl font-bold mb-2">{cgpa}</div>
-                <Badge variant="secondary" className="mb-4">
-                  {getCGPAGrade(cgpa)}
-                </Badge>
-                <p className="text-sm opacity-90">
-                  Based on {subjects.filter(s => s.name && s.credits > 0 && s.grade).length} subjects
-                </p>
-              </Card>
-            )}
+  {cgpa !== null && (
+    <Card className="p-6 text-center bg-gradient-primary text-primary-foreground">
+      <h3 className="text-xl font-semibold mb-4">Your CGPA</h3>
+      <div className="text-5xl font-bold mb-2 text-green-400">{cgpa}</div>
+      <Badge variant="secondary" className="mb-4">
+        {getCGPAGrade(cgpa)}
+      </Badge>
+      <p className="text-sm opacity-90">
+        Based on{" "}
+        {
+          subjects.filter((s) => s.name && s.credits > 0 && s.grade)
+            .length
+        }{" "}
+        subjects
+      </p>
+    </Card>
+  )}
 
             {/* Grade Scale */}
             <Card className="p-6">
