@@ -5,12 +5,12 @@ interface VideoPlayerProps {
 }
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl }) => {
-  // Extracts the YouTube video ID from a URL
+  // This function extracts the video ID from any YouTube URL format
   const getEmbedUrl = (url: string) => {
     let videoId = "";
     if (url.includes("youtu.be/")) {
       videoId = url.split("youtu.be/")[1];
-    } else {
+    } else if (url.includes("v=")) {
       videoId = url.split("v=")[1];
     }
     

@@ -243,8 +243,8 @@ const ResourceUploadForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // FIX: Updated validation logic
+    
+    // This validation logic is correct from the previous step
     if (resourceType === "video-lectures") {
       if (!videoUrl || !selectedSubject || !title) {
         toast.error("Please fill all fields and provide a video URL.");
@@ -267,8 +267,11 @@ const ResourceUploadForm = () => {
     formData.append("unit", unit.toString());
     formData.append("title", title);
 
-    // FIX: Conditionally append either the videoUrl or the file
+    // FIX: Define the endpoint URL and append data based on resource type
+    let endpoint = "http://localhost:5000/api/upload/file";
+
     if (resourceType === "video-lectures") {
+      endpoint = "http://localhost:5000/api/upload/link";
       formData.append("videoUrl", videoUrl);
     } else {
       if (file) {
@@ -277,24 +280,25 @@ const ResourceUploadForm = () => {
     }
 
     try {
-        const res = await axios.post("http://localhost:5000/api/upload", formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        toast.success((res.data as { msg?: string }).msg ?? "Upload successful!");
-        setSelectedSubject("");
-        setTitle("");
-        setUnit(1);
-        setFile(null);
-        setVideoUrl("");
-        (e.target as HTMLFormElement).reset();
+      const res = await axios.post(endpoint, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      toast.success((res.data as { msg?: string }).msg ?? "Upload successful!");
+      // ... (rest of your state reset logic)
+      setSelectedSubject("");
+      setTitle("");
+      setUnit(1);
+      setFile(null);
+      setVideoUrl("");
+      (e.target as HTMLFormElement).reset();
 
     } catch (error: any) {
-        console.error("Upload failed", error);
-        toast.error(error.response?.data?.msg || "Upload failed. Please try again.");
+      console.error("Upload failed", error);
+      toast.error(error.response?.data?.msg || "Upload failed. Please try again.");
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -359,7 +363,6 @@ const ResourceUploadForm = () => {
           </div>
           
           {/* FIX: This section now correctly shows the URL field for videos */}
-          // FIX: This section now correctly shows the URL field for videos
 <div className="space-y-2">
   {resourceType === "video-lectures" ? (
     <div>
