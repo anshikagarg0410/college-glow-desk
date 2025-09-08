@@ -1,231 +1,3 @@
-// // // import { Link } from "react-router-dom";
-// // // import Navigation from "@/components/Navigation";
-// // // import { Card } from "@/components/ui/card";
-// // // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-// // // import { Button } from "@/components/ui/button"; // <--- This line was missing!
-
-// // // const teamMembers = [
-// // //   {
-// // //     name: "Anshika Garg",
-// // //     image: "src/assets/Anshika.jpg", // Replace with actual image path
-// // //     description: "Brief description about the member and their role in the project. You can write a short bio or a fun fact here.",
-// // //   },
-// // //   {
-// // //     name: "Khushi",
-// // //     image: "src/assets/Khushi.jpg", // Replace with actual image path
-// // //     description: " 2nd Year CSEAI khushi096btcseai24@igdtuw.ac.in",
-// // //   },
-// // //   {
-// // //     name: "Bhumika Goyal",
-// // //     image: "src/assets/Bhumika.jpg", // Replace with actual image path
-// // //     description: "Brief description about the member and their role in the project. You can write a short bio or a fun fact here.",
-// // //   },
-// // //   {
-// // //     name: "Arshi",
-// // //     image: "src/assets/Arshi.jpg", // Replace with actual image path
-// // //     description: "Brief description about the member and their role in the project. You can write a short bio or a fun fact here.",
-// // //   },
-// // // ];
-
-// // // const About = () => {
-// // //   return (
-// // //     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
-// // //       <Navigation />
-// // //       <div className="max-w-6xl mx-auto px-4 py-12 text-gray-800 dark:text-gray-200">
-// // //         <header className="text-center mb-12">
-// // //           <h1 className="text-5xl font-extrabold text-gray-900 dark:text-white mb-4">
-// // //             About Us
-// // //           </h1>
-// // //           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-// // //             Welcome to the ultimate resource hub for IGDTUW students!
-// // //           </p>
-// // //         </header>
-
-// // //         {/* Main Content Section */}
-// // //         <Card className="p-8 shadow-lg bg-white dark:bg-gray-800 rounded-lg mb-12">
-// // //           <h2 className="text-3xl font-bold mb-4 text-purple-600 dark:text-purple-400">
-// // //             Our Mission
-// // //           </h2>
-// // //           <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-// // //             We are a group of students creating a comprehensive resource site for the IGDTUW community. Our goal is to make academic life and career preparation easier by providing a centralized platform for essential resources.
-// // //           </p>
-// // //           <ul className="list-disc list-inside space-y-2 mt-6 text-gray-700 dark:text-gray-300">
-// // //             <li>**Notes and PYQs:** Easily accessible notes and Previous Year Question papers to help with exam preparation.</li>
-// // //             <li>**YouTube Playlists:** Curated playlists of video resources for various subjects.</li>
-// // //             <li>**CGPA Calculator:** A handy tool to track and calculate your academic performance.</li>
-// // //             <li>**Opportunities Hub:** Information on scholarships, hackathons, and other opportunities to boost your career.</li>
-// // //             <li>**Senior Guidance:** A platform for students to get valuable advice and mentorship from their seniors.</li>
-// // //           </ul>
-// // //         </Card>
-
-// // //         {/* Team Section */}
-// // //         <div className="text-center mb-8">
-// // //           <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
-// // //             Meet Our Creators
-// // //           </h2>
-// // //           <p className="text-lg text-gray-600 dark:text-gray-300 mt-2">
-// // //             The team behind this initiative.
-// // //           </p>
-// // //         </div>
-
-// // //         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-// // //           {teamMembers.map((member, index) => (
-// // //             <Card key={index} className="p-6 text-center bg-white dark:bg-gray-800 shadow-lg rounded-lg transition-transform transform hover:scale-105">
-// // //               <Avatar className="w-32 h-32 mx-auto mb-4 border-4 border-blue-400 dark:border-blue-600">
-// // //                 <AvatarImage src={member.image} alt={member.name} className="object-cover" />
-// // //                 <AvatarFallback className="bg-blue-200 dark:bg-blue-800 text-blue-800 dark:text-blue-200 text-2xl font-bold">
-// // //                   {member.name.split(' ').map(n => n[0]).join('')}
-// // //                 </AvatarFallback>
-// // //               </Avatar>
-// // //               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{member.name}</h3>
-// // //               <p className="text-sm text-gray-600 dark:text-gray-400">{member.description}</p>
-// // //             </Card>
-// // //           ))}
-// // //         </div>
-
-// // //         {/* Keep Learning Section (New addition) */}
-// // //         <div className="text-center py-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg shadow-xl">
-// // //           <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-// // //             Keep Learning, Keep Growing!
-// // //           </h2>
-// // //           <p className="text-lg md:text-xl max-w-2xl mx-auto mb-6">
-// // //             We are continuously working to expand our resources and features to empower every IGDTUW student.
-// // //           </p>
-// // //           <Link to="/academic">
-// // //             <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 dark:text-blue-600 dark:hover:bg-gray-200 transition-all duration-300 shadow-lg">
-// // //               Explore Resources
-// // //             </Button>
-// // //           </Link>
-// // //         </div>
-
-// // //       </div>
-// // //     </div>
-// // //   );
-// // // };
-
-// // // export default About;
-// // import { Link } from "react-router-dom";
-// // import Navigation from "@/components/Navigation";
-// // import { Card } from "@/components/ui/card";
-// // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-// // import { Button } from "@/components/ui/button";
-
-// // const teamMembers = [
-// //   {
-// //     name: "Anshika Garg",
-// //     image: "src/assets/Anshika.jpg",
-// //     description: (
-// //       <>
-// //         2nd Year  CSE <br /> khushi096btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/anshika-garg-8a9b62324/">Connect</a>
-// //       </>
-// //     ),
-// //   },
-// //   {
-// //     name: "Khushi",
-// //     image: "src/assets/Khushi.jpg",
-// //     description: (
-// //       <>
-// //         2nd Year  CSE-AI <br /> khushi096btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/khushi-260785323/ ">Connect</a>
-// //       </>
-// //     ),
-// //   },
-// //   {
-// //     name: "Bhumika Goyal",
-// //     image: "src/assets/Bhumika.jpg",
-// //     description: (
-// //       <>
-// //         2nd Year  IT <br /> khushi096btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/bhumika-goyal-70299a336/">Connect</a>
-// //       </>
-// //     ),
-// //   },
-// //   {
-// //     name: "Arshi",
-// //     image: "src/assets/Arshi.jpg",
-// //     description: (
-// //       <>
-// //         2nd Year  CSE-AI <br /> arshi044btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/bhumika-goyal-70299a336/">Connect</a>
-// //       </>
-// //     ),
-// //   },
-// // ];
-
-// // const About = () => {
-// //   return (
-// //     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
-// //       <Navigation />
-// //       <div className="max-w-6xl mx-auto px-4 py-12 text-gray-800 dark:text-gray-200">
-// //         <header className="text-center mb-12">
-// //           <h1 className="text-5xl font-extrabold text-gray-900 dark:text-white mb-4">
-// //             About Us
-// //           </h1>
-// //           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-// //             Welcome to the ultimate resource hub for IGDTUW students!
-// //           </p>
-// //         </header>
-
-// //         {/* Main Content Section */}
-// //         <Card className="p-8 shadow-lg bg-white dark:bg-gray-800 rounded-lg mb-12">
-// //           <h2 className="text-3xl font-bold mb-4 text-purple-600 dark:text-purple-400">
-// //             Our Mission
-// //           </h2>
-// //           <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-// //             We are a group of students creating a comprehensive resource site for the IGDTUW community. Our goal is to make academic life and career preparation easier by providing a centralized platform for essential resources.
-// //           </p>
-// //           <ul className="list-disc list-inside space-y-2 mt-6 text-gray-700 dark:text-gray-300">
-// //             <li>**Notes and PYQs:** Easily accessible notes and Previous Year Question papers to help with exam preparation.</li>
-// //             <li>**YouTube Playlists:** Curated playlists of video resources for various subjects.</li>
-// //             <li>**CGPA Calculator:** A handy tool to track and calculate your academic performance.</li>
-// //             <li>**Opportunities Hub:** Information on scholarships, hackathons, and other opportunities to boost your career.</li>
-// //             <li>**Senior Guidance:** A platform for students to get valuable advice and mentorship from their seniors.</li>
-// //           </ul>
-// //         </Card>
-
-// //         {/* Team Section */}
-// //         <div className="text-center mb-8">
-// //           <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
-// //             Meet Our Creators
-// //           </h2>
-// //           <p className="text-lg text-gray-600 dark:text-gray-300 mt-2">
-// //             The team behind this initiative.
-// //           </p>
-// //         </div>
-
-// //         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-// //           {teamMembers.map((member, index) => (
-// //             <Card key={index} className="p-6 text-center bg-white dark:bg-gray-800 shadow-lg rounded-lg transition-transform transform hover:scale-105">
-// //               <Avatar className="w-32 h-32 mx-auto mb-4 border-4 border-blue-400 dark:border-blue-600">
-// //                 <AvatarImage src={member.image} alt={member.name} className="object-cover" />
-// //                 <AvatarFallback className="bg-blue-200 dark:bg-blue-800 text-blue-800 dark:text-blue-200 text-2xl font-bold">
-// //                   {member.name.split(' ').map(n => n[0]).join('')}
-// //                 </AvatarFallback>
-// //               </Avatar>
-// //               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{member.name}</h3>
-// //               <p className="text-sm text-gray-600 dark:text-gray-400">{member.description}</p>
-// //             </Card>
-// //           ))}
-// //         </div>
-
-// //         {/* Keep Learning Section (New addition) */}
-// //         <div className="text-center py-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg shadow-xl">
-// //           <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-// //             Keep Learning, Keep Growing!
-// //           </h2>
-// //           <p className="text-lg md:text-xl max-w-2xl mx-auto mb-6">
-// //             We are continuously working to expand our resources and features to empower every IGDTUW student.
-// //           </p>
-// //           <Link to="/academic">
-// //             <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 dark:text-blue-600 dark:hover:bg-gray-200 transition-all duration-300 shadow-lg">
-// //               Explore Resources
-// //             </Button>
-// //           </Link>
-// //         </div>
-
-// //       </div>
-// //     </div>
-// //   );
-// // };
-
-// // export default About;
 // import { Link } from "react-router-dom";
 // import Navigation from "@/components/Navigation";
 // import { Card } from "@/components/ui/card";
@@ -238,7 +10,7 @@
 //     image: "src/assets/Anshika.jpg",
 //     description: (
 //       <>
-//         2nd Year CSE <br /> khushi096btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/anshika-garg-8a9b62324/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300">Connect</a>
+//         2nd Year CSE <br /> anshika024btcse24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/anshika-garg-8a9b62324/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300" target="_blank" rel="noopener noreferrer">Connect</a>
 //       </>
 //     ),
 //   },
@@ -247,7 +19,7 @@
 //     image: "src/assets/Khushi.jpg",
 //     description: (
 //       <>
-//         2nd Year CSE-AI <br /> khushi096btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/khushi-260785323/ " className="text-blue-500 hover:text-blue-700 transition-colors duration-300">Connect</a>
+//         2nd Year CSE-AI <br /> khushi096btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/khushi-260785323/ " className="text-blue-500 hover:text-blue-700 transition-colors duration-300" target="_blank" rel="noopener noreferrer">Connect</a>
 //       </>
 //     ),
 //   },
@@ -256,7 +28,7 @@
 //     image: "src/assets/Bhumika.jpg",
 //     description: (
 //       <>
-//         2nd Year IT <br /> khushi096btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/bhumika-goyal-70299a336/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300">Connect</a>
+//         2nd Year IT <br /> bhumika026btit24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/bhumika-goyal-70299a336/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300" target="_blank" rel="noopener noreferrer">Connect</a>
 //       </>
 //     ),
 //   },
@@ -265,7 +37,7 @@
 //     image: "src/assets/Arshi.jpg",
 //     description: (
 //       <>
-//         2nd Year CSE-AI <br /> arshi044btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/bhumika-goyal-70299a336/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300">Connect</a>
+//         2nd Year CSE-AI <br /> arshi044btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/arshi-arya-a88248313/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300" target="_blank" rel="noopener noreferrer">Connect</a>
 //       </>
 //     ),
 //   },
@@ -354,10 +126,16 @@ import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
+// Images ko sahi tareeke se import kiya gaya hai
+import AnshikaImage from "@/assets/Anshika.jpg";
+import KhushiImage from "@/assets/Khushi.jpg";
+import BhumikaImage from "@/assets/Bhumika.jpg";
+import ArshiImage from "@/assets/Arshi.jpg";
+
 const teamMembers = [
   {
     name: "Anshika Garg",
-    image: "src/assets/Anshika.jpg",
+    image: AnshikaImage, // Imported image ka use
     description: (
       <>
         2nd Year CSE <br /> anshika024btcse24@igdtuw.ac.in<br /><a href="https://www.linkedin.com/in/anshika-garg-8a9b62324/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300" target="_blank" rel="noopener noreferrer">Connect</a>
@@ -366,7 +144,7 @@ const teamMembers = [
   },
   {
     name: "Khushi",
-    image: "src/assets/Khushi.jpg",
+    image: KhushiImage, // Imported image ka use
     description: (
       <>
         2nd Year CSE-AI <br /> khushi096btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/khushi-260785323/ " className="text-blue-500 hover:text-blue-700 transition-colors duration-300" target="_blank" rel="noopener noreferrer">Connect</a>
@@ -375,7 +153,7 @@ const teamMembers = [
   },
   {
     name: "Bhumika Goyal",
-    image: "src/assets/Bhumika.jpg",
+    image: BhumikaImage, // Imported image ka use
     description: (
       <>
         2nd Year IT <br /> bhumika026btit24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/bhumika-goyal-70299a336/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300" target="_blank" rel="noopener noreferrer">Connect</a>
@@ -384,7 +162,7 @@ const teamMembers = [
   },
   {
     name: "Arshi",
-    image: "src/assets/Arshi.jpg",
+    image: ArshiImage, // Imported image ka use
     description: (
       <>
         2nd Year CSE-AI <br /> arshi044btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/arshi-arya-a88248313/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300" target="_blank" rel="noopener noreferrer">Connect</a>
