@@ -288,7 +288,7 @@ const CGPACalculator = () => {
                 This chart illustrates the points awarded for each grade, which are then used to calculate your CGPA.
               </p>
               <img
-                src="src/assets/grading.jpg"
+                src="src/assets/grading.jpeg"
                 alt="CGPA Calculation Chart based on Grades"
                 className="w-full h-auto rounded-md border border-gray-200 dark:border-gray-700 object-cover"
               />
