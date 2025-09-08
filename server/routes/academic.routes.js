@@ -2,6 +2,7 @@ import express from "express";
 import {
   getSubjects,
   getResourcesByDetails,
+  deleteResource,
 } from "../controllers/academic.controller.js";
 
 const router = express.Router();
@@ -15,5 +16,6 @@ router.get("/subjects", getSubjects);
 // @desc    Get resources for a subject by details
 // @access  Public
 router.get("/resources", getResourcesByDetails);
+router.delete("/resources/:id", deleteResource);
 
 export default router;

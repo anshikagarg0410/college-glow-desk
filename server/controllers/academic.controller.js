@@ -1,5 +1,12 @@
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import Subject from "../models/subject.model.js";
 import Resource from "../models/resource.model.js";
+
+// Helper to get the correct directory path in ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // @desc    Get subjects by branch and year
 // @route   GET /api/academic/subjects
@@ -13,8 +20,6 @@ export const getSubjects = async (req, res) => {
 
     const subjects = await Subject.find({ branch, year });
 
-    // The frontend expects two semesters based on the year.
-    // Assuming 1st year has sem 1 & 2, 2nd year has sem 3 & 4 etc.
     const firstSem = parseInt(year) * 2 - 1;
     const secondSem = parseInt(year) * 2;
 
@@ -49,7 +54,8 @@ export const getResourcesByDetails = async (req, res) => {
     });
 
     if (!subject) {
-      return res.status(404).json({ msg: "Subject not found" });
+      // Return empty array if subject not found, which is a valid case
+      return res.json([]);
     }
 
     const resources = await Resource.find({
@@ -57,32 +63,44 @@ export const getResourcesByDetails = async (req, res) => {
       type: resourceType,
     }).sort("unit");
 
-    // For now, returning placeholder data as we haven't seeded actual resources
-    if (resources.length === 0) {
-      const placeholderResources = [
-        { unit: 1, title: `Unit 1: Introduction to ${subjectName}`, link: "#" },
-        {
-          unit: 2,
-          title: `Unit 2: Core Concepts of ${subjectName}`,
-          link: "#",
-        },
-        {
-          unit: 3,
-          title: `Unit 3: Advanced Topics in ${subjectName}`,
-          link: "#",
-        },
-        {
-          unit: 4,
-          title: `Unit 4: Applications of ${subjectName}`,
-          link: "#",
-        },
-      ];
-      return res.json(placeholderResources);
-    }
-
     res.json(resources);
-  } catch (err) {
+  } catch (err)
+  {
     console.error(err.message);
     res.status(500).send("Server Error");
+  }
+};
+
+// @desc    Delete a resource by ID
+// @route   DELETE /api/academic/resources/:id
+// @access  Private (You should add authentication for this)
+export const deleteResource = async (req, res) => {
+  try {
+    const resource = await Resource.findById(req.params.id);
+
+    if (!resource) {
+      return res.status(404).json({ msg: "Resource not found" });
+    }
+
+    // --- Step 1: Delete the physical file from the server ---
+    // This check ensures we don't try to delete a file for video lectures
+    if (resource.type !== "video-lectures" && resource.link) {
+      // Construct the absolute path to the file
+      const filePath = path.join(__dirname, '..', resource.link);
+
+      // Check if file exists on the server and delete it
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
+
+    // --- Step 2: Delete the record from the database ---
+    // Use findByIdAndDelete which is the modern Mongoose method
+    await Resource.findByIdAndDelete(req.params.id);
+
+    res.json({ msg: "Resource removed successfully" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error: Could not delete resource");
   }
 };
