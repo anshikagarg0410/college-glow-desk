@@ -1,8 +1,12 @@
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import axios from "axios";
 import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+// Note: You may not need VideoPlayer on this page, but keeping it just in case.
+// import VideoPlayer from "@/components/VideoPlayer";
 import {
   BookOpen,
   FileText,
@@ -11,9 +15,17 @@ import {
   ArrowLeft,
 } from "lucide-react";
 
+// Define the structure of a Subject object
+interface Subject {
+  _id: string;
+  name: string;
+  // Add other subject properties if needed
+}
+
 const SubjectResources = () => {
   const { branch, year, subject } = useParams();
 
+  // The 'resources' array is from the previous step and is correct.
   const resources = [
     { title: "Notes & PDFs", icon: FileText, slug: "notes-pdfs" },
     { title: "Tutorial Sheets", icon: FileText, slug: "tutorial-sheets" },
@@ -26,6 +38,7 @@ const SubjectResources = () => {
     { title: "Video Lectures", icon: Youtube, slug: "video-lectures" },
   ];
 
+  // This is the component from your provided code. It is correct.
   const ResourceItem = ({
     title,
     icon: Icon,
@@ -35,12 +48,9 @@ const SubjectResources = () => {
     icon: React.ElementType;
     slug: string;
   }) => {
-    // This creates the correct path, e.g., /academic/CSE/1/Mathematics-I/notes-pdfs
     const resourcePath = `/academic/${encodeURIComponent(
       branch!
-    )}/${encodeURIComponent(year!)}/${encodeURIComponent(
-      subject!
-    )}/${slug}`;
+    )}/${encodeURIComponent(year!)}/${encodeURIComponent(subject!)}/${slug}`;
 
     return (
       <Link to={resourcePath} className="block">

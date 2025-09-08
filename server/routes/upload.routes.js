@@ -1,11 +1,11 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
-import { uploadResource } from "../controllers/upload.controller.js";
+import { uploadFileResource, uploadLinkResource } from "../controllers/upload.controller.js";
 
 const router = express.Router();
 
-// Set up storage engine for multer
+// --- Configuration for File Uploads ---
 const storage = multer.diskStorage({
   destination: "./server/uploads/",
   filename: function (req, file, cb) {
@@ -16,41 +16,38 @@ const storage = multer.diskStorage({
   },
 });
 
-// Init upload
 const upload = multer({
   storage: storage,
   limits: { fileSize: 10000000 }, // 10MB limit
   fileFilter: function (req, file, cb) {
-    checkFileType(file, cb);
+    const filetypes = /pdf/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    if (extname) {
+      return cb(null, true);
+    } else {
+      cb("Error: PDFs Only!");
+    }
   },
-}).single("resourceFile"); // 'resourceFile' is the name of the input field in the form
+}).single("resourceFile");
 
-// Check File Type
-function checkFileType(file, cb) {
-  // Allowed ext
-  const filetypes = /pdf/;
-  // Check ext
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  // Check mime
-  const mimetype = filetypes.test(file.mimetype);
+// --- Routes ---
 
-  if (mimetype && extname) {
-    return cb(null, true);
-  } else {
-    cb("Error: PDFs Only!");
-  }
-}
-
-router.post("/", (req, res) => {
+// FIX: This route is now specifically for file uploads
+router.post("/file", (req, res) => {
   upload(req, res, (err) => {
     if (err) {
       return res.status(400).json({ msg: err });
     }
-    if (req.file == undefined) {
+    if (req.file === undefined) {
       return res.status(400).json({ msg: "Error: No File Selected!" });
     }
-    uploadResource(req, res);
+    // Call the dedicated file controller
+    uploadFileResource(req, res);
   });
 });
+
+// FIX: Create a new route for link uploads
+// We use multer().none() to parse the text fields from the multipart form data
+router.post("/link", multer().none(), uploadLinkResource);
 
 export default router;
