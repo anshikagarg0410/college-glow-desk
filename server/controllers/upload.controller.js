@@ -2,9 +2,10 @@ import Resource from "../models/resource.model.js";
 import Subject from "../models/subject.model.js";
 
 export const uploadResource = async (req, res) => {
-  const { branch, year, subjectName, resourceType, unit, title } = req.body;
+  const { branch, year, subjectName, resourceType, unit, title, videoUrl } =
+    req.body;
 
-  if (!req.file) {
+  if (resourceType !== "video" && !req.file) {
     return res.status(400).json({ msg: "File is required" });
   }
 
@@ -19,18 +20,31 @@ export const uploadResource = async (req, res) => {
       return res.status(404).json({ msg: "Subject not found" });
     }
 
-    const newResource = new Resource({
-      subject: subject._id,
-      type: resourceType,
-      unit: parseInt(unit),
-      title: title,
-      link: `/uploads/${req.file.filename}`, // Path to the uploaded file
-    });
+    let newResource;
+
+    if (resourceType === "video") {
+      newResource = new Resource({
+        subject: subject._id,
+        type: resourceType,
+        unit: parseInt(unit),
+        title: title,
+        videoUrl: videoUrl,
+      });
+    } else {
+      const fileUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+      newResource = new Resource({
+        subject: subject._id,
+        type: resourceType,
+        unit: parseInt(unit),
+        title: title,
+        link: fileUrl,
+      });
+    }
 
     await newResource.save();
 
     res.json({
-      msg: "File uploaded and resource created successfully",
+      msg: "Resource created successfully",
       resource: newResource,
     });
   } catch (err) {
