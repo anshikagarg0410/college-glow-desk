@@ -6,19 +6,30 @@ import {
   Card,
   CardHeader,
   CardTitle,
+  CardContent, // Import CardContent
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { FileText, Download, ArrowLeft } from "lucide-react";
+import { FileText, Download, ArrowLeft, Youtube } from "lucide-react"; // Import Youtube icon
 import { Skeleton } from "@/components/ui/skeleton";
+import VideoPlayer from "@/components/VideoPlayer"; // Import the new component
+
+// Define a type for your resource object for better type safety
+interface Resource {
+  _id: string;
+  title: string;
+  type: string;
+  unit: number;
+  link?: string;
+  videoUrl?: string;
+}
 
 const ResourceDetail = () => {
   const { branch, year, subject, resourceType } = useParams();
-  const [resources, setResources] = useState([]);
+  const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
-  // A helper function to format the resourceType from the URL for display
   const formattedResourceType = resourceType
     ?.split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -29,7 +40,7 @@ const ResourceDetail = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await axios.get<any[]>(
+        const res = await axios.get<Resource[]>(
           "http://localhost:5000/api/academic/resources",
           {
             params: {
@@ -73,7 +84,12 @@ const ResourceDetail = () => {
 
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <FileText className="h-10 w-10 text-primary" />
+            {/* FIX: Conditional Icon */}
+            {resourceType === "video-lectures" ? (
+              <Youtube className="h-10 w-10 text-primary" />
+            ) : (
+              <FileText className="h-10 w-10 text-primary" />
+            )}
             <h1 className="text-4xl font-bold text-foreground">
               {formattedResourceType}
             </h1>
@@ -87,10 +103,11 @@ const ResourceDetail = () => {
 
         {loading ? (
           <div className="grid gap-6">
-            {[...Array(4)].map((_, i) => (
+            {[...Array(3)].map((_, i) => (
               <Card key={i}>
                 <CardHeader>
-                  <Skeleton className="h-6" />
+                  <Skeleton className="h-6 w-3/4 mb-2" />
+                  <Skeleton className="h-48 w-full" />
                 </CardHeader>
               </Card>
             ))}
@@ -102,18 +119,38 @@ const ResourceDetail = () => {
         ) : (
           <div className="grid gap-6">
             {resources.length > 0 ? (
-              resources.map((unit: any) => (
-                <Card key={unit._id || unit.title}>
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
-                      <span>{unit.title}</span>
-                      <Button size="sm" variant="ghost" asChild>
-                        <a href={unit.link} target="_blank" rel="noopener noreferrer">
-                          <Download className="h-5 w-5" />
-                        </a>
-                      </Button>
-                    </CardTitle>
-                  </CardHeader>
+              resources.map((resource) => (
+                <Card key={resource._id}>
+                  {/* FIX: This entire block is now conditional */}
+                  {resource.type === "video-lectures" && resource.videoUrl ? (
+                    // UI for Video Lectures
+                    <>
+                      <CardHeader>
+                        <CardTitle>
+                          <span>Unit {resource.unit}: {resource.title}</span>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <VideoPlayer videoUrl={resource.videoUrl} />
+                      </CardContent>
+                    </>
+                  ) : (
+                    // Original UI for Notes & other file types
+                    <CardHeader>
+                      <CardTitle className="flex items-center justify-between">
+                        <span>{resource.title}</span>
+                        <Button size="sm" variant="ghost" asChild>
+                          <a
+                            href={resource.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Download className="h-5 w-5" />
+                          </a>
+                        </Button>
+                      </CardTitle>
+                    </CardHeader>
+                  )}
                 </Card>
               ))
             ) : (

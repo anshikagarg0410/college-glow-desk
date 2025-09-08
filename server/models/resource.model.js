@@ -7,6 +7,7 @@ const ResourceSchema = new Schema({
     ref: "Subject",
     required: true,
   },
+  // FIX: Update the enum to match the front-end values
   type: {
     type: String,
     required: true,
@@ -28,7 +29,15 @@ const ResourceSchema = new Schema({
   },
   link: {
     type: String,
-    required: true,
+    required: function () {
+      return this.type !== "video-lectures";
+    },
+  },
+  videoUrl: {
+    type: String,
+    required: function () {
+      return this.type === "video-lectures";
+    },
   },
 });
 
