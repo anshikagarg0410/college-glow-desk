@@ -6,8 +6,12 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",
-    port: 8080,
+    proxy: {
+      '/api': {
+        target: 'https://college-glow-desk.onrender.com/', // Your backend server URL
+        changeOrigin: true,
+      },
+    },
   },
   plugins: [
     react(),
