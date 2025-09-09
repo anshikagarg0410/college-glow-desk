@@ -43,7 +43,7 @@
   color: #4b5563;
 }
 
-/* Staggered entry animation */
+
 @keyframes cardAppear {
   from {
     opacity: 0;
