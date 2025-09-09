@@ -136,6 +136,8 @@
 // };
 
 // export default SocietyCategoryPage;
+// src/components/SocietyCategoryPage.tsx
+
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { societiesData } from '@/data/societiesData';
@@ -195,6 +197,7 @@ const SocietyCategoryPage: React.FC = () => {
                 key={index}
                 frontContent={society.name}
                 backContent={society.description}
+                website={society.website} // Add this line
                 className={`card-animation ${animated ? 'is-visible' : ''}`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               />

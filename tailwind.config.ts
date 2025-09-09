@@ -94,6 +94,9 @@ export default {
 					}
 				}
 			},
+			fontFamily: {
+				sans: ['Poppins', 'sans-serif'], // Set Poppins as the default sans-serif font
+			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
