@@ -25,8 +25,8 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.get("/", (req, res) => res.send("API Running"));
 
 // Define Routes
-app.use("/api/academic", academicRoutes);
-app.use("/api/upload", uploadRoutes);
+app.use("/academics", academicRoutes);
+app.use("/upload", uploadRoutes);
 
 const PORT = process.env.PORT || 5000;
 
