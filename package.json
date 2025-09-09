@@ -54,6 +54,7 @@
     "express": "^4.21.2",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.462.0",
+    "mongodb": "^6.19.0",
     "mongoose": "^8.18.0",
     "multer": "^2.x.x",
     "next-themes": "^0.3.0",
