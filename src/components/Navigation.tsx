@@ -18,12 +18,12 @@ const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
+    { href: "/about", label: "About", icon: Users },
     { href: "/academic", label: "Academic Resources", icon: BookOpen },
     { href: "/cgpa-calculator", label: "CGPA Calculator", icon: Calculator },
+    { href: "/societies", label: "Societies", icon: Users },
     { href: "/scholarships", label: "Scholarships", icon: Trophy },
     { href: "/hackathons", label: "Hackathons", icon: Crown },
-    { href: "/societies", label: "Societies", icon: Users },
-    { href: "/about", label: "About", icon: Users },
   ];
 
   const NavItem = ({ href, label, icon: Icon }: any) => {

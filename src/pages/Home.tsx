@@ -398,7 +398,7 @@ import {
 
 const Home = () => {
   const branches = [
-    "CSE-AI", "CSE", "IT", "AI/ML", "ECE-AI", "ECE", "Mathematical & Computing"
+    "CSE-AI", "CSE", "IT", "AI/ML", "ECE-AI", "ECE", "MAE","Mathematical & Computing"
   ];
 
   const features = [

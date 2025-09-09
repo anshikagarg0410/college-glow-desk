@@ -6,9 +6,9 @@ import Resource from "./models/resource.model.js";
 
 const allData = {
   "1": { // First Year Data
-    CSE: {
+    "CSE": {
       "1": [
-        "Applied Mathematics", "Applied Physics", "Programming with C", "Cyber Security Awareness", "IT Workshop", "Introduction to Data Science", "Basics of Electrical and Electronics Engineering", "Communication Skills",
+        "Applied Mathematics", "Applied Physics", "Programming with C",   "Basics of Electrical and Electronics Engineering", "Communication Skills","Web Application Development"
       ],
       "2": [
         "Probability and Statistics", "Environmental Sciences", "Data Structures", "Web Application Development", "Soft Skills and Personality Development",
@@ -16,15 +16,15 @@ const allData = {
     },
     "CSE-AI": {
        "1": [
-        "Probability and Statistics", "Environmental Sciences", "Programming with Python", "Cyber Security Awareness", "Web Application Development", "Basics of Electrical and Electronics Engineering", "IT Workshop", "Communication Skills",
+        "Probability and Statistics", "Environmental Sciences", "Programming with Python", "Basics of Electrical and Electronics Engineering", "IT Workshop", "Communication Skills",
       ],
       "2": [
         "Applied Mathematics", "Applied Physics", "Data Structures", "Introduction to Data Science", "Soft Skills and Personality Development",
       ],
     },
-    ECE: {
+    "ECE": {
       "1": [
-        "Applied Mathematics", "Fundamentals of Electrical Sciences", "Signals and Systems", "Programming Fundamentals", "Cyber Security Awareness", "Web Application Development", "Electronics Workshop", "Communication Skills",
+        "Applied Mathematics", "Fundamentals of Electrical Sciences", "Signals and Systems",  "Electronics Workshop", "Communication Skills",
       ],
       "2": [
         "Environmental Sciences", "Applied Physics", "Network Analysis and Synthesis", "Introduction to Data Science", "IT Workshop", "Soft Skills and Personality Development",
@@ -32,23 +32,23 @@ const allData = {
     },
     "ECE-AI": {
        "1": [
-        "Applied Mathematics", "Fundamentals of Electrical Sciences", "Signals and Systems", "Programming Fundamentals", "Cyber Security Awareness", "Web Application Development", "Electronics Workshop", "Communication Skills",
+        "Applied Mathematics",  "Fundamentals of Electrical Sciences","Programming with Python","Electronics Workshop", "Communication Skills","Signals and Systems",
       ],
       "2": [
         "Environmental Sciences", "Applied Physics", "Network Analysis and Synthesis", "Introduction to Data Science", "IT Workshop", "Soft Skills and Personality Development",
       ],
     },
-    IT: {
+    "IT": {
       "1": [
-        "Applied Mathematics", "Applied Physics", "Programming with Python", "IT Workshop", "Basics of Electrical and Electronics Engineering", "Web Application Development", "Communication Skills",
+        "Applied Mathematics", "Applied Physics", "Programming with Python", "IT Workshop",  "Web Application Development", "Communication Skills",
       ],
       "2": [
-        "Probability and Statistics", "Environmental Sciences", "Object Oriented Programming", "Introduction to Data Science", "Soft Skills and Personality Development",
+        "Probability and Statistics", "Environmental Sciences", "Object Oriented Programming", "CAD Modelling","Introduction to Data Science", "Soft Skills and Personality Development",
       ],
     },
     "AI&ML": {
       "1": [
-        "Probability and Statistics", "Environmental Sciences", "Programming with Python", "IT Workshop", "Basics of Electrical and Electronics Engineering", "Web Application Development", "Communication Skills",
+        "Probability and Statistics", "Environmental Sciences", "Programming with Python",  "Basics of Electrical and Electronics Engineering", "Web Application Development", "Communication Skills",
       ],
       "2": [
         "Applied Mathematics", "Applied Physics", "Object Oriented Programming", "Introduction to Data Science", "Soft Skills and Personality Development",
@@ -56,7 +56,7 @@ const allData = {
     },
     "MAE/DMAM": {
        "1": [
-        "Applied Mathematics", "Applied Physics", "Elements of Mechanical Engineering", "Basics of Electrical and Electronics Engineering", "Programming Fundamentals", "Introduction to Data Science", "Web Application Development", "Workshop Practice", "Communication Skills",
+        "Applied Mathematics", "Applied Physics", "Elements of Mechanical Engineering", "Basics of Electrical and Electronics Engineering", "Workshop Practice", "Communication Skills",
       ],
       "2": [
         "Probability and Statistics", "Environmental Sciences", "Engineering Mechanics", "Engineering Graphics & CAD Modelling", "Soft Skills and Personality Development",
@@ -64,33 +64,33 @@ const allData = {
     },
   },
   "2": { // Second Year Data
-    CSE: {
-      "3": ["Computer Organization", "Operating Systems", "Design and Analysis of Algorithms", "Object-Oriented Programming"],
-      "4": ["Data Communications", "Database Management Systems", "Software Engineering", "Theory of Computation"],
+    "CSE": {
+      "3": ["Discrete Mathematics", "Operations Management", "IKS","Introduction to Internet of Things", "Design and Analysis of Algorithms", "Software Engineering"],
+      "4": ["Database Management Systems", "Computer Organization and Architecture", "Operating Systems", "Advanced IoT and Real World Applications"]
     },
     "CSE-AI": {
-      "3": ["Operating Systems", "Database Management Systems", "Artificial Intelligence", "Machine Learning"],
-      "4": ["Computer Networks", "Deep Learning", "Natural Language Processing", "Data Science"],
+      "3": ["Discrete Mathematics ", "Database Management Systems", "Artificial Intelligence", "Operations Management","IKS","Object Oriented Programming"],
+      "4": ["Computer Networks", "Design and Analysis of Algorithms", "Operating Systems", "Open Soured Technologies" ],
     },
-    ECE: {
-        "3": ["Analog Electronic Circuits", "Digital Logic Design", "Signals & Systems", "Network Analysis"],
-        "4": ["Microcontrollers", "Analog Communication", "Digital Signal Processing", "Electromagnetic Field Theory"],
+    "ECE": {
+        "3": ["Analog Communication Systems", "Digital System Design", "Numerical Techniques for Engineers", "Electronics Circuit Simulation Workshop","Advanced Electronic Workshop " ],
+        "4": ["Electromagnetic Field Theory & Antenna", "Analog Electronics", "Digital Communication Systems", "Control Systems "],
     },
     "ECE-AI": {
-        "3": ["Analog and Digital Electronics", "Data Structures for AI", "Machine Learning", "Signals and Systems"],
-        "4": ["Deep Learning", "Computer Vision", "Embedded Systems for AI", "Robotics"],
+        "3": ["Numerical Techniques for Engineers", "Analog & Digital Electronics", "Data Structures and Algorithm", "IKS","Electronics Circuit Simulation Workshop","Advanced Electronic Workshop"],
+        "4": ["Analog Communication Systems", "Computer Organization and Architecture", "Artificial Intelligence", "Design and Analysis of Algorithms" ],
     },
-    IT: {
-      "3": ["Internet Working Essentials", "Operating Systems", "Data Structures and Algorithms", "Computer Networks"],
-      "4": ["Artificial Intelligence", "Programming in Java", "Database Management Systems", "Software Engineering"],
+    "IT": {
+      "3": ["Discrete Mathematics", "Database Management Systems", "Data Structures and Algorithms", "Operations Management","Ergonomic Design","Open Source Technologies" ],
+      "4": ["Design and Analysis of Algorithms", "Operating Systems", "Software Engineering", "Fundamentals of Devops"],
     },
     "AI&ML": {
-      "3": ["Data Structures and Algorithms", "Operating System", "Python Programming", "Database Management System"],
-      "4": ["Java Programming", "Computer Organization and Architecture", "Applied Statistical Techniques", "Machine Learning"],
+      "3": ["Data Structures and Algorithms", "Discrete Mathematics", "IKS","Open Source Technologies", "Database Management System"],
+      "4": ["Design and Analysis of Algorithms", "Operating Systems", "Fundamentals of Devops", "Artificial Intelligence"],
     },
     "MAE/DMAM": {
-        "3": ["Thermodynamics", "Fluid Mechanics", "Strength of Materials", "Manufacturing Processes"],
-        "4": ["Heat Transfer", "Machine Design", "Control Systems", "Dynamics of Machinery"],
+        "3": ["Numerical Techniques for Engineers", "Production Technology - I", "Engineering Materials", "Machine Drawing Lab","Robotics Lab","IKS","Thermal Engineering - I"],
+        "4": ["Thermal Engineering - II", "Production Technology - II", "Theory of Machines", "Strength of Materials","IoT Lab","IKS","Fluid Mechanics and Hydraulic Machines"],
     },
   },
 };
