@@ -408,7 +408,8 @@ const Home = () => {
       description: "Notes, PDFs, tutorials, PYQs, and YouTube links for all subjects",
       href: "/academic",
       color: "bg-indigo-500",
-      iconColor: "text-indigo-500"
+      iconColor: "text-indigo-500",
+      premium: true
     },
     {
       icon: Calculator,
@@ -416,7 +417,8 @@ const Home = () => {
       description: "Calculate your CGPA easily with our intuitive calculator",
       href: "/cgpa-calculator",
       color: "bg-blue-500",
-      iconColor: "text-blue-500"
+      iconColor: "text-blue-500",
+      premium: true
     },
     {
       icon: Trophy,
@@ -427,22 +429,14 @@ const Home = () => {
       iconColor: "text-yellow-500",
       premium: true
     },
-    {
-      icon: Briefcase,
-      title: "Internships",
-      description: "Find internship opportunities and application tips",
-      href: "/internships",
-      color: "bg-purple-500",
-      iconColor: "text-purple-500",
-      premium: true
-    },
     { // New feature object for Societies
       icon: Users,
       title: "Explore Societies",
       description: "Discover all the technical, cultural, and other societies at IGDTUW.",
       href: "/societies",
-      color: "bg-green-500",
-      iconColor: "text-green-500"
+      color: "bg-purple-500",
+      iconColor: "text-purple-500",
+      premium: true
     }
   ];
 
