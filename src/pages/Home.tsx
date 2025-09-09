@@ -445,35 +445,47 @@ const Home = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden min-h-[90vh] flex items-center justify-center">
-        {/* Animated Background Image */}
+      <section className="relative overflow-hidden min-h-[90vh] flex items-center justify-start">
+        {/* Background Image with Enhanced Overlay */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-parallax"
           style={{ backgroundImage: `url(${collegeBackground})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background to-background/50 dark:to-background/70" />
-        
-        <div className="relative max-w-7xl mx-auto px-4 py-20 text-center z-10">
-          <div className="mb-12">
-            <h1 className="text-6xl md:text-7xl font-extrabold text-gray-900 dark:text-white mb-4 leading-tight drop-shadow-md">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
+
+        <div className="absolute max-w-6xl ml-8 lg:ml-16 px-6 py-20 z-10 mt-16 mb-0">
+          <div className="text-left space-y-6">
+            {/* Main Heading - StudyHub */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-3 leading-none tracking-tight drop-shadow-2xl font-poppins">
               StudyHub
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground font-medium drop-shadow-sm">
-              Your comprehensive resource center for academic excellence at IGDTUW
+            
+            {/* Secondary Heading */}
+            <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-gray-100 mb-4 leading-tight drop-shadow-lg font-poppins">
+              Unlock Your Potential at IGDTUW
+            </h2>
+            
+            {/* Description */}
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-200 font-light mb-10 leading-relaxed max-w-2xl drop-shadow-md font-inter">
+              Your comprehensive resource center for academic excellence
             </p>
           </div>
-          <p className="text-2xl md:text-3xl text-foreground font-medium mb-12 max-w-4xl mx-auto leading-relaxed">
-              Unlock your potential with curated resources, tools, and opportunities.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+          
+          {/* Enhanced Buttons */}
+          <div className="flex flex-col sm:flex-row gap-6 mt-12">
             <Link to="/academic">
-              <Button size="lg" className="text-xl px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+              <Button size="lg" className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white text-lg font-semibold px-12 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-0 font-inter">
                 Explore Resources
-                <ArrowRight className="ml-3 h-6 w-6" />
+                <ArrowRight className="ml-3 h-5 w-5" />
               </Button>
             </Link>
             <Link to="/about">
-              <Button size="lg" variant="outline" className="text-xl px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-2 border-white/90 text-gray-900 bg-white/95 hover:bg-white hover:text-gray-800 text-lg font-semibold px-12 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 backdrop-blur-sm font-inter"
+              >
                 Learn More
               </Button>
             </Link>
@@ -482,20 +494,25 @@ const Home = () => {
       </section>
 
       {/* Branches Section */}
-      <section className="py-24 px-4 bg-muted/20 dark:bg-gray-800">
+      <section className="py-32 px-6 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-8 leading-tight font-poppins">
               All Branches Covered
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Comprehensive resources for every engineering discipline at IGDTUW.
+            <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-blue-500 mx-auto mb-8 rounded-full"></div>
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed font-inter">
+              Comprehensive resources for every engineering discipline at IGDTUW
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
             {branches.map((branch, index) => (
-              <Badge key={index} variant="secondary" className="text-lg py-3 px-6 rounded-full font-medium transition-all duration-300 hover:scale-105">
+              <Badge 
+                key={index} 
+                variant="secondary" 
+                className="text-lg font-semibold py-4 px-8 rounded-full bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 text-gray-800 dark:text-white hover:from-green-100 hover:to-blue-100 dark:hover:from-green-800 dark:hover:to-blue-800 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl cursor-pointer font-inter"
+              >
                 {branch}
               </Badge>
             ))}
