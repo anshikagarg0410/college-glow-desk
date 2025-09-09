@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     proxy: {
       '/api': {
-        target: 'https://college-glow-desk.onrender.com/', // Your backend server URL
+        target: 'https://college-glow-desk.onrender.com', // Your backend server URL
         changeOrigin: true,
       },
     },
