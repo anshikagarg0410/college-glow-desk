@@ -1,5 +1,6 @@
 import Resource from "../models/resource.model.js";
 import Subject from "../models/subject.model.js";
+import { cloudinary } from "../config/cloudinary.config.js";
 
 // Handles FILE uploads and saves to 'link' and 'cloudinary_id'
 export const uploadFileResource = async (req, res) => {
@@ -37,13 +38,42 @@ export const uploadFileResource = async (req, res) => {
       return res.status(400).json({ msg: "File is required" });
     }
 
+    let fileUrl, publicId;
+
+    // Check if multer-storage-cloudinary worked
+    if (req.file.path && req.file.public_id) {
+      fileUrl = req.file.path;
+      publicId = req.file.public_id;
+      console.log("Using multer-storage-cloudinary result");
+    } else {
+      // Fallback: upload directly to Cloudinary
+      console.log("Multer storage failed, using direct Cloudinary upload");
+      try {
+        const fileName = req.file.originalname.split('.').slice(0, -1).join('.');
+        const public_id = `${fileName}-${Date.now()}`;
+        
+        const result = await cloudinary.uploader.upload(req.file.buffer, {
+          folder: 'college-glow-desk',
+          public_id: public_id,
+          resource_type: 'auto'
+        });
+        
+        fileUrl = result.secure_url;
+        publicId = result.public_id;
+        console.log("Direct Cloudinary upload successful");
+      } catch (cloudinaryError) {
+        console.error("Direct Cloudinary upload failed:", cloudinaryError);
+        return res.status(500).json({ msg: "File upload failed", error: cloudinaryError.message });
+      }
+    }
+
     const newResource = new Resource({
       subject: subject._id,
       type: resourceType,
       unit: parseInt(unit),
       title: title,
-      link: req.file.path, // Save Cloudinary URL to the 'link' field
-      cloudinary_id: req.file.public_id, // Save the public_id for deletion
+      link: fileUrl, // Save Cloudinary URL to the 'link' field
+      cloudinary_id: publicId, // Save the public_id for deletion
     });
 
     await newResource.save();

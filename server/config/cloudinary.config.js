@@ -40,4 +40,6 @@ const upload = multer({
   }
 });
 
+// Export both cloudinary instance and upload middleware
+export { cloudinary };
 export default upload;
