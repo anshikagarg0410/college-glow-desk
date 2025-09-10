@@ -50,16 +50,16 @@ export const uploadFileResource = async (req, res) => {
       const base64String = req.file.buffer.toString('base64');
       const dataUri = `data:${req.file.mimetype};base64,${base64String}`;
       
-      // Upload as image resource type but preserve PDF format
+      // Upload as raw file for PDFs - this is the correct way
       const uploadResult = await cloudinary.uploader.upload(dataUri, {
         folder: 'college-glow-desk',
         public_id: public_id,
-        resource_type: 'image',
-        format: 'pdf', // Keep PDF format
-        flags: 'attachment' // This ensures it's treated as a downloadable/viewable document
+        resource_type: 'raw'
       });
       
-      fileUrl = uploadResult.secure_url;
+      // For raw files, we need to use a different URL format for proper viewing
+      // Use the public_id to construct a proper viewing URL
+      fileUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/raw/upload/${uploadResult.public_id}.pdf`;
       publicId = uploadResult.public_id;
       console.log("Cloudinary upload successful:", fileUrl);
       
