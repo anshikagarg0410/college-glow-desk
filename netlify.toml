@@ -1,6 +1,17 @@
-# This rule tells Netlify to proxy any request starting with /api
-# to your backend server on Render.
+# This is the main build configuration
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# This is the proxy rule for your backend API
 [[redirects]]
   from = "/api/*"
   to = "https://college-glow-desk.onrender.com/api/:splat"
+  status = 200
+
+# This is the rule for the Single Page Application (SPA)
+# It must be the LAST redirect rule
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
