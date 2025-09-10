@@ -1,6 +1,7 @@
 import express from 'express';
 import connectDB from './config/db.config.js';
 import cors from 'cors';
+import multer from 'multer';
 import 'dotenv/config';
 import academicRoutes from './routes/academic.routes.js';
 import uploadRoutes from './routes/upload.routes.js';
@@ -36,6 +37,17 @@ if (process.env.NODE_ENV !== 'production') {
 // --- CORRECTED: Use a consistent /api prefix for all routes ---
 app.use('/api/academic', academicRoutes);
 app.use('/api', uploadRoutes); // Now it listens for /api/upload-file
+
+// Multer error handling middleware
+app.use((error, req, res, next) => {
+  if (error instanceof multer.MulterError) {
+    if (error.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({ msg: 'File too large. Maximum size is 10MB.' });
+    }
+    return res.status(400).json({ msg: error.message });
+  }
+  next(error);
+});
 
 // Error handling middleware (must be last)
 app.use(notFound);

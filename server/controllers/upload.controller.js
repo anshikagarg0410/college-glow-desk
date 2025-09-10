@@ -15,6 +15,12 @@ export const uploadFileResource = async (req, res) => {
       public_id: req.file.public_id
     } : "No file");
 
+    // Check if there was a multer error
+    if (req.fileError) {
+      console.log("Multer error:", req.fileError);
+      return res.status(400).json({ msg: req.fileError.message });
+    }
+
     const subject = await Subject.findOne({
       name: subjectName,
       branch,
