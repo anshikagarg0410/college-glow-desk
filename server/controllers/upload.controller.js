@@ -38,33 +38,34 @@ export const uploadFileResource = async (req, res) => {
       return res.status(400).json({ msg: "File is required" });
     }
 
+    // Upload file directly to Cloudinary using memory storage
+    console.log("Uploading file to Cloudinary...");
     let fileUrl, publicId;
-
-    // Check if multer-storage-cloudinary worked
-    if (req.file.path && req.file.public_id) {
-      fileUrl = req.file.path;
-      publicId = req.file.public_id;
-      console.log("Using multer-storage-cloudinary result");
-    } else {
-      // Fallback: upload directly to Cloudinary
-      console.log("Multer storage failed, using direct Cloudinary upload");
-      try {
-        const fileName = req.file.originalname.split('.').slice(0, -1).join('.');
-        const public_id = `${fileName}-${Date.now()}`;
-        
-        const result = await cloudinary.uploader.upload(req.file.buffer, {
-          folder: 'college-glow-desk',
-          public_id: public_id,
-          resource_type: 'auto'
-        });
-        
-        fileUrl = result.secure_url;
-        publicId = result.public_id;
-        console.log("Direct Cloudinary upload successful");
-      } catch (cloudinaryError) {
-        console.error("Direct Cloudinary upload failed:", cloudinaryError);
-        return res.status(500).json({ msg: "File upload failed", error: cloudinaryError.message });
-      }
+    
+    try {
+      const fileName = req.file.originalname.split('.').slice(0, -1).join('.');
+      const public_id = `${fileName}-${Date.now()}`;
+      
+      // Convert buffer to base64 for Cloudinary upload
+      const base64String = req.file.buffer.toString('base64');
+      const dataUri = `data:${req.file.mimetype};base64,${base64String}`;
+      
+      const uploadResult = await cloudinary.uploader.upload(dataUri, {
+        folder: 'college-glow-desk',
+        public_id: public_id,
+        resource_type: 'auto'
+      });
+      
+      fileUrl = uploadResult.secure_url;
+      publicId = uploadResult.public_id;
+      console.log("Cloudinary upload successful:", fileUrl);
+      
+    } catch (cloudinaryError) {
+      console.error("Cloudinary upload failed:", cloudinaryError);
+      return res.status(500).json({ 
+        msg: "File upload failed", 
+        error: cloudinaryError.message 
+      });
     }
 
     const newResource = new Resource({

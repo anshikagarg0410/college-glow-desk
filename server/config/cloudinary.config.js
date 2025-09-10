@@ -1,6 +1,5 @@
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
-import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
 // Configure Cloudinary with credentials from environment variables
 cloudinary.config({
@@ -9,19 +8,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Create Cloudinary storage configuration
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'college-glow-desk',
-    allowed_formats: ['pdf', 'jpg', 'png', 'jpeg', 'gif'],
-    resource_type: 'auto',
-    public_id: (req, file) => {
-      const fileName = file.originalname.split('.').slice(0, -1).join('.');
-      return `${fileName}-${Date.now()}`;
-    },
-  },
-});
+// Use memory storage instead of CloudinaryStorage
+const storage = multer.memoryStorage();
 
 // Create the Multer upload instance
 const upload = multer({ 
