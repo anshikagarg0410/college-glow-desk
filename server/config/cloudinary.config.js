@@ -14,7 +14,8 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'college-glow-desk', // Optional: folder name in Cloudinary
-    allowed_formats: ['pdf', 'jpg', 'png'], // Specify allowed file formats
+    allowed_formats: ['pdf', 'jpg', 'png', 'jpeg', 'gif'], // Specify allowed file formats
+    resource_type: 'auto', // Let Cloudinary auto-detect the resource type
     // You can add a public_id transformation to name files uniquely
     public_id: (req, file) => {
       // You can use the original filename or create a unique one

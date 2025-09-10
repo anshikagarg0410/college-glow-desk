@@ -6,6 +6,15 @@ export const uploadFileResource = async (req, res) => {
   const { branch, year, subjectName, resourceType, unit, title } = req.body;
 
   try {
+    console.log("Upload request received:", { branch, year, subjectName, resourceType, unit, title });
+    console.log("File info:", req.file ? {
+      originalname: req.file.originalname,
+      mimetype: req.file.mimetype,
+      size: req.file.size,
+      path: req.file.path,
+      public_id: req.file.public_id
+    } : "No file");
+
     const subject = await Subject.findOne({
       name: subjectName,
       branch,
@@ -13,9 +22,12 @@ export const uploadFileResource = async (req, res) => {
     });
 
     if (!subject) {
+      console.log("Subject not found:", { subjectName, branch, year });
       return res.status(404).json({ msg: "Subject not found" });
     }
+    
     if (!req.file) {
+      console.log("No file provided in request");
       return res.status(400).json({ msg: "File is required" });
     }
 
@@ -25,15 +37,17 @@ export const uploadFileResource = async (req, res) => {
       unit: parseInt(unit),
       title: title,
       link: req.file.path, // Save Cloudinary URL to the 'link' field
-      cloudinary_id: req.file.filename, // Save the public_id for deletion
+      cloudinary_id: req.file.public_id, // Save the public_id for deletion
     });
 
     await newResource.save();
+    console.log("Resource saved successfully:", newResource);
     res.json({ msg: "File resource created successfully", resource: newResource });
 
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
+    console.error("Upload error:", err.message);
+    console.error("Full error:", err);
+    res.status(500).json({ msg: "Server Error", error: err.message });
   }
 };
 
