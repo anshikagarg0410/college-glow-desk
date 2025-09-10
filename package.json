@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "node server/server.js",
-    "seed": "node server/seed.js"
+    "seed": "node server/seed.js",
+    "start:seed": "npm run seed && npm run server"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
