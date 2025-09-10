@@ -15,6 +15,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { UploadCloud, Trash2 } from "lucide-react";
+import { API_ENDPOINTS, buildApiUrl } from "@/config/api";
 
 // Define an interface for the subject data
 interface Subject {
@@ -84,10 +85,7 @@ const ResourceUploadForm = () => {
       if (branch && year) {
         try {
           const res = await axios.get<SubjectsApiResponse>(
-            "http://localhost:5000/api/academic/subjects",
-            {
-              params: { branch, year },
-            }
+            buildApiUrl(API_ENDPOINTS.SUBJECTS, { branch, year })
           );
           const allSubjects = [...res.data.sem1, ...res.data.sem2];
           setSubjects(allSubjects);
@@ -107,15 +105,12 @@ const ResourceUploadForm = () => {
         try {
           // Use the Resource[] type with axios for this call
           const res = await axios.get<Resource[]>(
-            "http://localhost:5000/api/academic/resources",
-            {
-              params: {
-                branch,
-                year,
-                subjectName: selectedSubject,
-                resourceType,
-              },
-            }
+            buildApiUrl(API_ENDPOINTS.RESOURCES, {
+              branch,
+              year,
+              subjectName: selectedSubject,
+              resourceType,
+            })
           );
           setResources(res.data);
         } catch (error) {
@@ -160,10 +155,10 @@ const ResourceUploadForm = () => {
     formData.append("unit", unit.toString());
     formData.append("title", title);
 
-    let endpoint = "http://localhost:5000/api/upload/file";
+    let endpoint = API_ENDPOINTS.UPLOAD_FILE;
 
     if (resourceType === "video-lectures") {
-      endpoint = "http://localhost:5000/api/upload/link";
+      endpoint = API_ENDPOINTS.UPLOAD_LINK;
       formData.append("videoUrl", videoUrl);
     } else {
       if (file) {
@@ -188,15 +183,12 @@ const ResourceUploadForm = () => {
       const fetchResources = async () => {
         if (branch && year && selectedSubject && resourceType) {
           const res = await axios.get<Resource[]>(
-            "http://localhost:5000/api/academic/resources",
-            {
-              params: {
-                branch,
-                year,
-                subjectName: selectedSubject,
-                resourceType,
-              },
-            }
+            buildApiUrl(API_ENDPOINTS.RESOURCES, {
+              branch,
+              year,
+              subjectName: selectedSubject,
+              resourceType,
+            })
           );
           setResources(res.data);
         }
@@ -217,7 +209,7 @@ const ResourceUploadForm = () => {
     if (window.confirm("Are you sure you want to delete this resource?")) {
       try {
         await axios.delete(
-          `http://localhost:5000/api/academic/resources/${resourceId}`
+          `${API_ENDPOINTS.RESOURCES}/${resourceId}`
         );
         toast.success("Resource deleted successfully");
         // No more 'any' type needed here

@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import { BookOpen, ArrowRight, GraduationCap } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { API_ENDPOINTS, buildApiUrl } from "@/config/api";
 
 const ResourceCard = ({
   subject,
@@ -84,13 +85,10 @@ const AcademicResources = () => {
       setError(null);
       try {
         const res = await axios.get<{ sem1: any[]; sem2: any[] }>(
-          `http://localhost:5000/api/academic/subjects`,
-          {
-            params: {
-              branch: selectedBranch,
-              year: selectedYear,
-            },
-          }
+          buildApiUrl(API_ENDPOINTS.SUBJECTS, {
+            branch: selectedBranch,
+            year: selectedYear,
+          })
         );
         setSubjects(res.data);
       } catch (err: any) {

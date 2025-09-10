@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { FileText, Download, ArrowLeft, Youtube } from "lucide-react"; // Import Youtube icon
 import { Skeleton } from "@/components/ui/skeleton";
 import VideoPlayer from "@/components/VideoPlayer"; // Import the new component
+import { API_ENDPOINTS, buildApiUrl } from "@/config/api";
 
 // Define a type for your resource object for better type safety
 interface Resource {
@@ -41,15 +42,12 @@ const ResourceDetail = () => {
       setError(null);
       try {
         const res = await axios.get<Resource[]>(
-          "http://localhost:5000/api/academic/resources",
-          {
-            params: {
-              branch,
-              year,
-              subjectName: subject,
-              resourceType,
-            },
-          }
+          buildApiUrl(API_ENDPOINTS.RESOURCES, {
+            branch,
+            year,
+            subjectName: subject,
+            resourceType,
+          })
         );
         setResources(res.data);
       } catch (err: any) {
