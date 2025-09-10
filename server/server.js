@@ -11,15 +11,15 @@ const app = express();
 connectDB();
 
 // Initialize Middleware
-app.use(cors()); // For handling cross-origin requests
-app.use(express.json()); // For parsing JSON bodies
+app.use(cors());
+app.use(express.json());
 
 // Define a simple root route
 app.get('/', (req, res) => res.send('API is running...'));
 
-// --- CORRECTED: Define API Routes with a consistent /api prefix ---
+// --- CORRECTED: Use a consistent /api prefix for all routes ---
 app.use('/api/academic', academicRoutes);
-app.use('/api', uploadRoutes); // This will handle /api/upload-file and /api/upload-link
+app.use('/api', uploadRoutes); // Now it listens for /api/upload-file
 
 const PORT = process.env.PORT || 5000;
 
