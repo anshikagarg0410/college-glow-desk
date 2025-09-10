@@ -1,32 +1,25 @@
-import express from "express";
-import connectDB from "./config/db.config.js";
-import cors from "cors";
-import "dotenv/config";
-import academicRoutes from "./routes/academic.routes.js";
-import uploadRoutes from "./routes/upload.routes.js";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import express from 'express';
+import connectDB from './config/db.config.js';
+import cors from 'cors';
+import 'dotenv/config';
+import academicRoutes from './routes/academic.routes.js';
+import uploadRoutes from './routes/upload.routes.js';
 
 const app = express();
 
-// Connect Database
+// Connect to the Database
 connectDB();
 
-// Init Middleware
-app.use(cors());
-app.use(express.json({ extended: false }));
+// Initialize Middleware
+app.use(cors()); // For handling cross-origin requests
+app.use(express.json()); // For parsing JSON bodies
 
-// Serve static files from the 'uploads' directory
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// Define a simple root route
+app.get('/', (req, res) => res.send('API is running...'));
 
-app.get("/", (req, res) => res.send("API Running"));
-
-// Define Routes
-app.use("/academics", academicRoutes);
-app.use("/upload", uploadRoutes);
+// --- CORRECTED: Define API Routes with a consistent /api prefix ---
+app.use('/api/academic', academicRoutes);
+app.use('/api', uploadRoutes); // This will handle /api/upload-file and /api/upload-link
 
 const PORT = process.env.PORT || 5000;
 
