@@ -1,53 +1,15 @@
-import express from "express";
-import multer from "multer";
-import path from "path";
-import { uploadFileResource, uploadLinkResource } from "../controllers/upload.controller.js";
+import express from 'express';
+import { uploadFileResource, uploadLinkResource } from '../controllers/upload.controller.js';
+import upload from '../config/cloudinary.config.js'; // Your Cloudinary multer config
 
 const router = express.Router();
 
-// --- Configuration for File Uploads ---
-const storage = multer.diskStorage({
-  destination: "./server/uploads/",
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
+// Route for UPLOADING FILES (e.g., PDFs, images)
+// This uses the 'upload' middleware to handle the file and send it to Cloudinary
+router.post('/upload-file', upload.single('resourceFile'), uploadFileResource);
 
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 10000000 }, // 10MB limit
-  fileFilter: function (req, file, cb) {
-    const filetypes = /pdf/;
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    if (extname) {
-      return cb(null, true);
-    } else {
-      cb("Error: PDFs Only!");
-    }
-  },
-}).single("resourceFile");
-
-// --- Routes ---
-
-// FIX: This route is now specifically for file uploads
-router.post("/file", (req, res) => {
-  upload(req, res, (err) => {
-    if (err) {
-      return res.status(400).json({ msg: err });
-    }
-    if (req.file === undefined) {
-      return res.status(400).json({ msg: "Error: No File Selected!" });
-    }
-    // Call the dedicated file controller
-    uploadFileResource(req, res);
-  });
-});
-
-// FIX: Create a new route for link uploads
-// We use multer().none() to parse the text fields from the multipart form data
-router.post("/link", multer().none(), uploadLinkResource);
+// Route for UPLOADING LINKS (e.g., YouTube videos)
+// This does NOT need the multer middleware because there is no file
+router.post('/upload-link', uploadLinkResource);
 
 export default router;

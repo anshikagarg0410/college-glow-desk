@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import Subject from "../models/subject.model.js";
 import Resource from "../models/resource.model.js";
+import { v2 as cloudinary } from 'cloudinary'; // Make sure to import cloudinary at the top
 
 // Helper to get the correct directory path in ES Modules
 const __filename = fileURLToPath(import.meta.url);
@@ -74,33 +75,28 @@ export const getResourcesByDetails = async (req, res) => {
 // @desc    Delete a resource by ID
 // @route   DELETE /api/academic/resources/:id
 // @access  Private (You should add authentication for this)
+// @desc    Delete a resource by ID
+// @route   DELETE /api/academic/resources/:id
+// @access  Private
 export const deleteResource = async (req, res) => {
   try {
     const resource = await Resource.findById(req.params.id);
 
     if (!resource) {
-      return res.status(404).json({ msg: "Resource not found" });
+      return res.status(404).json({ msg: 'Resource not found' });
     }
 
-    // --- Step 1: Delete the physical file from the server ---
-    // This check ensures we don't try to delete a file for video lectures
-    if (resource.type !== "video-lectures" && resource.link) {
-      // Construct the absolute path to the file
-      const filePath = path.join(__dirname, '..', resource.link);
-
-      // Check if file exists on the server and delete it
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-      }
+    // --- STEP 1: Delete from Cloudinary (if it's a file) ---
+    if (resource.cloudinary_id) {
+      await cloudinary.uploader.destroy(resource.cloudinary_id);
     }
 
-    // --- Step 2: Delete the record from the database ---
-    // Use findByIdAndDelete which is the modern Mongoose method
+    // --- STEP 2: Delete from the database ---
     await Resource.findByIdAndDelete(req.params.id);
 
-    res.json({ msg: "Resource removed successfully" });
+    res.json({ msg: 'Resource removed successfully' });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error: Could not delete resource");
+    res.status(500).send('Server Error: Could not delete resource');
   }
 };

@@ -7,7 +7,6 @@ const ResourceSchema = new Schema({
     ref: "Subject",
     required: true,
   },
-  // FIX: Update the enum to match the front-end values
   type: {
     type: String,
     required: true,
@@ -29,16 +28,24 @@ const ResourceSchema = new Schema({
   },
   link: {
     type: String,
+    // This is correct: required only if it's NOT a video lecture
     required: function () {
       return this.type !== "video-lectures";
     },
   },
   videoUrl: {
     type: String,
+    // This is also correct: required only if it IS a video lecture
     required: function () {
       return this.type === "video-lectures";
     },
   },
-});
+  // --- CRITICAL: Add this field back for deleting files ---
+  cloudinary_id: {
+    type: String,
+    // This is not required because video links won't have it
+    required: false,
+  },
+}, { timestamps: true }); // It's good practice to add timestamps
 
 export default mongoose.model("Resource", ResourceSchema);

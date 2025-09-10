@@ -1,7 +1,7 @@
 import Resource from "../models/resource.model.js";
 import Subject from "../models/subject.model.js";
 
-// This function will now ONLY handle file uploads
+// Handles FILE uploads and saves to 'link' and 'cloudinary_id'
 export const uploadFileResource = async (req, res) => {
   const { branch, year, subjectName, resourceType, unit, title } = req.body;
 
@@ -15,38 +15,32 @@ export const uploadFileResource = async (req, res) => {
     if (!subject) {
       return res.status(404).json({ msg: "Subject not found" });
     }
-    
-    // This part requires a file
     if (!req.file) {
-      return res.status(400).json({ msg: "File is required for this resource type" });
+      return res.status(400).json({ msg: "File is required" });
     }
-    const fileUrl = `http://localhost:5000/uploads/${req.file.filename}`;
-    
+
     const newResource = new Resource({
       subject: subject._id,
       type: resourceType,
       unit: parseInt(unit),
       title: title,
-      link: fileUrl,
+      link: req.file.path, // Save Cloudinary URL to the 'link' field
+      cloudinary_id: req.file.filename, // Save the public_id for deletion
     });
 
     await newResource.save();
+    res.json({ msg: "File resource created successfully", resource: newResource });
 
-    res.json({
-      msg: "Resource created successfully",
-      resource: newResource,
-    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
 };
 
-// Create a NEW function to handle link uploads
+// Handles LINK uploads and saves to 'videoUrl'
 export const uploadLinkResource = async (req, res) => {
-  const { branch, year, subjectName, resourceType, unit, title, videoUrl } =
-    req.body;
-  
+  const { branch, year, subjectName, resourceType, unit, title, videoUrl } = req.body;
+
   try {
     const subject = await Subject.findOne({
       name: subjectName,
@@ -57,7 +51,6 @@ export const uploadLinkResource = async (req, res) => {
     if (!subject) {
       return res.status(404).json({ msg: "Subject not found" });
     }
-
     if (!videoUrl) {
       return res.status(400).json({ msg: "Video URL is required" });
     }
@@ -67,15 +60,12 @@ export const uploadLinkResource = async (req, res) => {
       type: resourceType,
       unit: parseInt(unit),
       title: title,
-      videoUrl: videoUrl,
+      videoUrl: videoUrl, // Save the video URL to the 'videoUrl' field
     });
 
     await newResource.save();
+    res.json({ msg: "Link resource created successfully", resource: newResource });
     
-    res.json({
-      msg: "Resource created successfully",
-      resource: newResource,
-    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
