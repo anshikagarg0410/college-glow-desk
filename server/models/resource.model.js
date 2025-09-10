@@ -44,7 +44,9 @@ const ResourceSchema = new Schema({
   cloudinary_id: {
     type: String,
     // This is not required because video links won't have it
-    required: false,
+     required: function () {
+    return this.type !== 'video-lectures';
+  },
   },
 }, { timestamps: true }); // It's good practice to add timestamps
 
