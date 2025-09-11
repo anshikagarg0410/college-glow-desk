@@ -61,7 +61,10 @@ export const uploadFileResource = async (req, res) => {
         resource_type: 'raw'
       });
       
-      fileUrl = uploadResult.secure_url;
+      // Force inline rendering for PDFs using Cloudinary delivery flag
+      const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+      const publicPath = uploadResult.public_id; // already includes .pdf
+      fileUrl = `https://res.cloudinary.com/${cloudName}/raw/upload/fl_inline/${publicPath}`;
       publicId = uploadResult.public_id;
       console.log("Cloudinary upload successful:", fileUrl);
       
