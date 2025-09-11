@@ -151,17 +151,16 @@ const ResourceDetail = () => {
                       </CardHeader>
                       {/* Inline PDF preview when link looks like a PDF */}
                       {(() => {
-                        const link = resource.link?.toLowerCase() || "";
-                        const isPdf = link.endsWith(".pdf") || link.includes("/raw/upload/");
+                        const link = resource.link || "";
+                        const lower = link.toLowerCase();
+                        const isPdf = lower.endsWith(".pdf") || lower.includes("/raw/upload/");
                         return isPdf ? (
                           <CardContent>
-                            <div className="w-full h-[70vh] rounded-md overflow-hidden border">
-                              {/* Use Google Docs Viewer for robust inline PDF rendering */}
-                              <iframe
-                                src={`https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(resource.link || "")}`}
-                                className="w-full h-full"
-                                title={`Preview ${resource.title}`}
-                              />
+                            <div className="w-full h-[70vh] rounded-md overflow-hidden border bg-muted/20 flex items-stretch">
+                              {/* Prefer native PDF rendering. If headers force download, the fallback link remains available above. */}
+                              <object data={link} type="application/pdf" className="w-full h-full">
+                                <embed src={link} type="application/pdf" className="w-full h-full" />
+                              </object>
                             </div>
                           </CardContent>
                         ) : null;
