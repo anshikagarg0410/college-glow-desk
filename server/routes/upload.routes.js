@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/upload-file', upload.single('resourceFile'), uploadFileResource);
 
 // Route for UPLOADING LINKS (e.g., YouTube videos)
-// This does NOT need the multer middleware because there is no file
-router.post('/upload-link', uploadLinkResource);
+// Parse multipart form fields without files since frontend sends FormData
+router.post('/upload-link', upload.none(), uploadLinkResource);
 
 export default router;
