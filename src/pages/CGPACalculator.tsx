@@ -18,7 +18,7 @@ interface Subject {
 }
 
 const CGPACalculator = () => {
-  const MAX_SUBJECTS = 6; // Maximum subjects limit
+  // Removed subject limit to allow unlimited subjects
 
   const [subjects, setSubjects] = useState<Subject[]>(() => {
     // Load subjects from localStorage if available
@@ -56,12 +56,8 @@ const CGPACalculator = () => {
   };
 
   const addSubject = () => {
-    if (subjects.length < MAX_SUBJECTS) {
-      const newId = (Math.max(...subjects.map(s => parseInt(s.id))) + 1).toString();
-      setSubjects([...subjects, { id: newId, name: "", credits: 0, grade: "" }]);
-    } else {
-      toast.error(`You can add a maximum of ${MAX_SUBJECTS} subjects.`);
-    }
+    const newId = (Math.max(...subjects.map(s => parseInt(s.id))) + 1).toString();
+    setSubjects([...subjects, { id: newId, name: "", credits: 0, grade: "" }]);
   };
 
   const removeSubject = (id: string) => {
@@ -162,10 +158,9 @@ const CGPACalculator = () => {
                   onClick={addSubject}
                   size="lg"
                   className="bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600"
-                  disabled={subjects.length >= MAX_SUBJECTS}
                 >
                   <Plus className="h-5 w-5 mr-2" />
-                  Add Subject ({subjects.length}/{MAX_SUBJECTS})
+                  Add Subject ({subjects.length})
                 </Button>
               </div>
 
@@ -321,7 +316,7 @@ const CGPACalculator = () => {
               <li>**Complete Data Entry:** Ensure all subject fields (Name, Credits, Grade) are accurately filled for precise CGPA calculation.</li>
               <li>**Credit Weightage:** Remember that subjects with higher credit values have a more significant impact on your overall CGPA. Prioritize these!</li>
               <li>**Consistency is Key:** Maintaining consistent good grades across all subjects is the most effective way to boost and sustain a high CGPA.</li>
-              <li>**Subject Limit:** This calculator allows you to track up to {MAX_SUBJECTS} subjects at a time. Plan your entries accordingly.</li>
+              <li>**No Subject Limit:** Add as many subjects as you need; there is no cap.</li>
               <li>**Regular Monitoring:** Use this tool frequently to monitor your progress and identify areas for improvement.</li>
             </ul>
           </Card>
