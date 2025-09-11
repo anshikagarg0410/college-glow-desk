@@ -58,7 +58,12 @@ export const uploadFileResource = async (req, res) => {
       const uploadResult = await cloudinary.uploader.upload(dataUri, {
         folder: 'college-glow-desk',
         public_id: public_id,
-        resource_type: 'raw'
+        resource_type: 'raw',
+        access_mode: 'public',
+        type: 'upload',
+        use_filename: true,
+        unique_filename: false,
+        overwrite: false
       });
       
       // Use Cloudinary's direct secure URL for raw assets
