@@ -134,20 +134,38 @@ const ResourceDetail = () => {
                     </>
                   ) : (
                     // Original UI for Notes & other file types
-                    <CardHeader>
-                      <CardTitle className="flex items-center justify-between">
-                        <span>{resource.title}</span>
-                        <Button size="sm" variant="ghost" asChild>
-                          <a
-                            href={resource.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <Download className="h-5 w-5" />
-                          </a>
-                        </Button>
-                      </CardTitle>
-                    </CardHeader>
+                    <>
+                      <CardHeader>
+                        <CardTitle className="flex items-center justify-between">
+                          <span>Unit {resource.unit}: {resource.title}</span>
+                          <Button size="sm" variant="ghost" asChild>
+                            <a
+                              href={resource.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Download className="h-5 w-5" />
+                            </a>
+                          </Button>
+                        </CardTitle>
+                      </CardHeader>
+                      {/* Inline PDF preview when link looks like a PDF */}
+                      {(() => {
+                        const link = resource.link?.toLowerCase() || "";
+                        const isPdf = link.endsWith(".pdf") || link.includes("/raw/upload/");
+                        return isPdf ? (
+                          <CardContent>
+                            <div className="w-full h-[70vh] rounded-md overflow-hidden border">
+                              <iframe
+                                src={resource.link}
+                                className="w-full h-full"
+                                title={`Preview ${resource.title}`}
+                              />
+                            </div>
+                          </CardContent>
+                        ) : null;
+                      })()}
+                    </>
                   )}
                 </Card>
               ))
