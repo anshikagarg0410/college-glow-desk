@@ -138,7 +138,7 @@ const teamMembers = [
     image: AnshikaImage, // Imported image ka use
     description: (
       <>
-        2nd Year CSE <br /> anshika024btcse24@igdtuw.ac.in<br /><a href="https://www.linkedin.com/in/anshika-garg-8a9b62324/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300" target="_blank" rel="noopener noreferrer">Connect</a>
+        2nd Year CSE <br /> anshika024btcse24@igdtuw.ac.in<br /><a href="https://www.linkedin.com/in/anshika-garg-8a9b62324/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300 inline-block mt-2" target="_blank" rel="noopener noreferrer">Connect</a>
       </>
     ),
   },
@@ -147,7 +147,7 @@ const teamMembers = [
     image: KhushiImage, // Imported image ka use
     description: (
       <>
-        2nd Year CSE-AI <br /> khushi096btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/khushi-260785323/ " className="text-blue-500 hover:text-blue-700 transition-colors duration-300" target="_blank" rel="noopener noreferrer">Connect</a>
+        2nd Year CSE-AI <br /> khushi096btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/khushi-260785323/ " className="text-blue-500 hover:text-blue-700 transition-colors duration-300 inline-block mt-2" target="_blank" rel="noopener noreferrer">Connect</a>
       </>
     ),
   },
@@ -156,7 +156,7 @@ const teamMembers = [
     image: BhumikaImage, // Imported image ka use
     description: (
       <>
-        2nd Year IT <br /> bhumika026btit24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/bhumika-goyal-70299a336/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300" target="_blank" rel="noopener noreferrer">Connect</a>
+        2nd Year IT <br /> bhumika026btit24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/bhumika-goyal-70299a336/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300 inline-block mt-2" target="_blank" rel="noopener noreferrer">Connect</a>
       </>
     ),
   },
@@ -165,7 +165,7 @@ const teamMembers = [
     image: ArshiImage, // Imported image ka use
     description: (
       <>
-        2nd Year CSE-AI <br /> arshi044btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/arshi-arya-a88248313/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300" target="_blank" rel="noopener noreferrer">Connect</a>
+        2nd Year CSE-AI <br /> arshi044btcseai24@igdtuw.ac.in <br /><a href="https://www.linkedin.com/in/arshi-arya-a88248313/" className="text-blue-500 hover:text-blue-700 transition-colors duration-300 inline-block mt-2" target="_blank" rel="noopener noreferrer">Connect</a>
       </>
     ),
   },
@@ -214,7 +214,7 @@ const About = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-20">
           {teamMembers.map((member, index) => (
-            <Card key={index} className="p-8 text-center bg-white dark:bg-gray-800 shadow-xl rounded-xl transition-all duration-500 transform hover:scale-105 hover:shadow-2xl">
+            <Card key={index} className="p-8 text-center bg-white dark:bg-gray-800 shadow-xl rounded-xl transition-all duration-500 transform hover:scale-105 hover:shadow-2xl overflow-hidden">
               <Avatar className="w-36 h-36 mx-auto mb-5 border-4 border-indigo-400 dark:border-indigo-600">
                 <AvatarImage src={member.image} alt={member.name} className="object-cover" />
                 <AvatarFallback className="bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200 text-3xl font-bold">
@@ -222,7 +222,7 @@ const About = () => {
                 </AvatarFallback>
               </Avatar>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{member.name}</h3>
-              <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed">{member.description}</p>
+              <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed break-words">{member.description}</p>
             </Card>
           ))}
         </div>
