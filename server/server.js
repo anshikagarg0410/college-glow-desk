@@ -1,6 +1,7 @@
 import express from 'express';
 import connectDB from './config/db.config.js';
 import cors from 'cors';
+import fetch from 'node-fetch';
 import multer from 'multer';
 import 'dotenv/config';
 import academicRoutes from './routes/academic.routes.js';
@@ -19,7 +20,7 @@ const app = express();
 connectDB();
 
 // Initialize Middleware
-app.use(cors());
+app.use(cors({ origin: '*', exposedHeaders: ['Content-Range', 'Accept-Ranges'] }));
 app.use(express.json());
 app.use(requestLogger);
 
