@@ -1,7 +1,6 @@
 import express from 'express';
 import connectDB from './config/db.config.js';
 import cors from 'cors';
-import fetch from 'node-fetch';
 import multer from 'multer';
 import 'dotenv/config';
 import academicRoutes from './routes/academic.routes.js';
