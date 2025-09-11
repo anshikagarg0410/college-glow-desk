@@ -1,3 +1,4 @@
+
 // import { useState, useEffect } from "react";
 // import { useParams, Link } from "react-router-dom";
 // import axios from "axios";
@@ -6,13 +7,13 @@
 //   Card,
 //   CardHeader,
 //   CardTitle,
-//   CardContent, // Import CardContent
+//   CardContent,
 // } from "@/components/ui/card";
 // import { Button } from "@/components/ui/button";
 // import { Badge } from "@/components/ui/badge";
-// import { FileText, Download, ArrowLeft, Youtube } from "lucide-react"; // Import Youtube icon
+// import { FileText, Download, ArrowLeft, Youtube } from "lucide-react";
 // import { Skeleton } from "@/components/ui/skeleton";
-// import VideoPlayer from "@/components/VideoPlayer"; // Import the new component
+// import VideoPlayer from "@/components/VideoPlayer";
 // import { API_ENDPOINTS, buildApiUrl } from "@/config/api";
 
 // // Define a type for your resource object for better type safety
@@ -82,7 +83,6 @@
 
 //         <div className="text-center mb-8">
 //           <div className="flex items-center justify-center gap-3 mb-4">
-//             {/* FIX: Conditional Icon */}
 //             {resourceType === "video-lectures" ? (
 //               <Youtube className="h-10 w-10 text-primary" />
 //             ) : (
@@ -119,7 +119,6 @@
 //             {resources.length > 0 ? (
 //               resources.map((resource) => (
 //                 <Card key={resource._id}>
-//                   {/* FIX: This entire block is now conditional */}
 //                   {resource.type === "video-lectures" && resource.videoUrl ? (
 //                     // UI for Video Lectures
 //                     <>
@@ -149,24 +148,6 @@
 //                           </Button>
 //                         </CardTitle>
 //                       </CardHeader>
-//                       {/* Inline PDF preview when link looks like a PDF */}
-//                       {(() => {
-//                         const link = resource.link || "";
-//                         const lower = link.toLowerCase();
-//                         const isPdf = lower.endsWith(".pdf") || lower.includes("/raw/upload/");
-//                         return isPdf ? (
-//                           <CardContent>
-//                             <div className="w-full h-[70vh] rounded-md overflow-hidden border bg-muted/20 flex items-stretch">
-//                               {/* Use hosted PDF.js viewer for robust cross-browser rendering */}
-//                               <iframe
-//                                 src={`https://college-glow-desk.onrender.com/api/proxy/pdf?src=${encodeURIComponent(link)}`}
-//                                 className="w-full h-full"
-//                                 title={`PDF ${resource.title}`}
-//                               />
-//                             </div>
-//                           </CardContent>
-//                         ) : null;
-//                       })()}
 //                     </>
 //                   )}
 //                 </Card>
@@ -196,7 +177,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { FileText, Download, ArrowLeft, Youtube } from "lucide-react";
+import { FileText, ExternalLink, ArrowLeft, Youtube } from "lucide-react"; // Changed Download to ExternalLink
 import { Skeleton } from "@/components/ui/skeleton";
 import VideoPlayer from "@/components/VideoPlayer";
 import { API_ENDPOINTS, buildApiUrl } from "@/config/api";
@@ -328,7 +309,7 @@ const ResourceDetail = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              <Download className="h-5 w-5" />
+                              <ExternalLink className="h-5 w-5" /> {/* Changed to ExternalLink */}
                             </a>
                           </Button>
                         </CardTitle>
