@@ -100,3 +100,44 @@ export const deleteResource = async (req, res) => {
     res.status(500).send('Server Error: Could not delete resource');
   }
 };
+
+// @desc    Create a subject
+// @route   POST /api/academic/subjects
+// @access  Private (admin)
+export const createSubject = async (req, res) => {
+  try {
+    const { name, branch, year, semester } = req.body || {};
+    if (!name || !branch || !year || !semester) {
+      return res.status(400).json({ msg: 'Missing required fields' });
+    }
+    const existing = await Subject.findOne({ name, branch, year: Number(year), semester: Number(semester) });
+    if (existing) {
+      return res.status(409).json({ msg: 'Subject already exists' });
+    }
+    const subject = await Subject.create({ name, branch, year: Number(year), semester: Number(semester) });
+    return res.status(201).json(subject);
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).json({ msg: 'Server Error' });
+  }
+};
+
+// @desc    Delete a subject by ID
+// @route   DELETE /api/academic/subjects/:id
+// @access  Private (admin)
+export const deleteSubject = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const subject = await Subject.findById(id);
+    if (!subject) {
+      return res.status(404).json({ msg: 'Subject not found' });
+    }
+    // Optionally, also delete related resources
+    await Resource.deleteMany({ subject: subject._id });
+    await Subject.findByIdAndDelete(id);
+    return res.json({ msg: 'Subject deleted successfully' });
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).json({ msg: 'Server Error' });
+  }
+};

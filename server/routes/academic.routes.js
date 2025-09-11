@@ -3,7 +3,10 @@ import {
   getSubjects,
   getResourcesByDetails,
   deleteResource,
+  createSubject,
+  deleteSubject,
 } from "../controllers/academic.controller.js";
+import { requireAdmin } from "../middleware/admin.js";
 
 const router = express.Router();
 
@@ -17,5 +20,9 @@ router.get("/subjects", getSubjects);
 // @access  Public
 router.get("/resources", getResourcesByDetails);
 router.delete("/resources/:id", deleteResource);
+
+// Admin-only subject management
+router.post("/subjects", requireAdmin, createSubject);
+router.delete("/subjects/:id", requireAdmin, deleteSubject);
 
 export default router;

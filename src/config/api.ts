@@ -23,6 +23,7 @@ export const API_ENDPOINTS = {
   UPLOAD_FILE: `${API_BASE_URL}/api/upload-file`,
   UPLOAD_LINK: `${API_BASE_URL}/api/upload-link`,
   HEALTH: `${API_BASE_URL}/health`,
+  SUBJECTS_ADMIN: `${API_BASE_URL}/api/academic/subjects`,
 } as const;
 
 // Helper function to build API URLs
