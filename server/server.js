@@ -43,6 +43,27 @@ if (process.env.NODE_ENV !== 'production') {
 app.use('/api/academic', academicRoutes);
 app.use('/api', uploadRoutes); // Now it listens for /api/upload-file
 
+// Lightweight proxy to serve PDFs from Cloudinary to avoid viewer auth/CORS issues
+app.get('/api/proxy/pdf', async (req, res) => {
+  try {
+    const src = String(req.query.src || '');
+    const url = new URL(src);
+    if (url.hostname !== 'res.cloudinary.com') {
+      return res.status(400).json({ msg: 'Invalid source host' });
+    }
+    const upstream = await fetch(url.toString());
+    if (!upstream.ok || !upstream.body) {
+      return res.status(upstream.status || 502).send('Upstream fetch failed');
+    }
+    const contentType = upstream.headers.get('content-type') || 'application/pdf';
+    res.setHeader('Content-Type', contentType);
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    upstream.body.pipe(res);
+  } catch (e) {
+    res.status(400).json({ msg: 'Invalid URL' });
+  }
+});
+
 // Multer error handling middleware
 app.use((error, req, res, next) => {
   if (error instanceof multer.MulterError) {

@@ -159,7 +159,7 @@ const ResourceDetail = () => {
                             <div className="w-full h-[70vh] rounded-md overflow-hidden border bg-muted/20 flex items-stretch">
                               {/* Use hosted PDF.js viewer for robust cross-browser rendering */}
                               <iframe
-                                src={`https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(link)}`}
+                                src={`${import.meta.env.PROD ? '' : ''}${`https://college-glow-desk.onrender.com/api/proxy/pdf?src=${encodeURIComponent(link)}`}`}
                                 className="w-full h-full"
                                 title={`PDF ${resource.title}`}
                               />
