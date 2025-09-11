@@ -51,13 +51,29 @@ app.get('/api/proxy/pdf', async (req, res) => {
     if (url.hostname !== 'res.cloudinary.com') {
       return res.status(400).json({ msg: 'Invalid source host' });
     }
-    const upstream = await fetch(url.toString());
+
+    // Forward range requests for streaming
+    const headers = new Headers();
+    if (req.headers.range) headers.set('Range', req.headers.range);
+    headers.set('Accept', 'application/pdf');
+    headers.set('User-Agent', 'college-glow-desk-proxy');
+
+    const upstream = await fetch(url.toString(), { headers });
     if (!upstream.ok || !upstream.body) {
-      return res.status(upstream.status || 502).send('Upstream fetch failed');
+      res.status(upstream.status || 502);
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      return res.send('Upstream fetch failed');
     }
-    const contentType = upstream.headers.get('content-type') || 'application/pdf';
-    res.setHeader('Content-Type', contentType);
-    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+
+    // Pass through important headers
+    res.status(upstream.status);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    const copyHeaders = ['content-type', 'content-length', 'accept-ranges', 'content-range', 'cache-control'];
+    copyHeaders.forEach((h) => {
+      const v = upstream.headers.get(h);
+      if (v) res.setHeader(h, v);
+    });
+
     upstream.body.pipe(res);
   } catch (e) {
     res.status(400).json({ msg: 'Invalid URL' });
