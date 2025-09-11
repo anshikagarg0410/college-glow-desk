@@ -139,7 +139,7 @@ const ResourceDetail = () => {
                         <span>{resource.title}</span>
                         <Button size="sm" variant="ghost" asChild>
                           <a
-                            href={`${resource.link}#toolbar=0&navpanes=0&scrollbar=0`}
+                            href={resource.link}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
