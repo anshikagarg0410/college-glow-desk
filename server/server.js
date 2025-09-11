@@ -26,8 +26,10 @@ app.use(requestLogger);
 // Define a simple root route
 app.get('/', (req, res) => res.send('API is running...'));
 
-// Avoid 500s for missing favicon on Render root
-app.get('/favicon.ico', (req, res) => res.status(204).end());
+// Serve empty favicon to avoid proxy 5xx
+app.get('/favicon.ico', (req, res) => {
+  res.status(200).type('image/x-icon').end();
+});
 
 // Health check endpoint
 app.get('/health', healthCheck);
