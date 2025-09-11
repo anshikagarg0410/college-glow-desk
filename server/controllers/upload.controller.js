@@ -44,7 +44,11 @@ export const uploadFileResource = async (req, res) => {
     
     try {
       const fileName = req.file.originalname.split('.').slice(0, -1).join('.');
-      const public_id = `${fileName}-${Date.now()}`;
+      // Ensure PDFs are saved with a .pdf extension so browsers open inline
+      const isPdf = req.file.mimetype === 'application/pdf';
+      const public_id = isPdf
+        ? `${fileName}-${Date.now()}.pdf`
+        : `${fileName}-${Date.now()}`;
       
       // Convert buffer to base64 for Cloudinary upload
       const base64String = req.file.buffer.toString('base64');
