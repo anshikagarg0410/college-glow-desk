@@ -157,10 +157,12 @@ const ResourceDetail = () => {
                         return isPdf ? (
                           <CardContent>
                             <div className="w-full h-[70vh] rounded-md overflow-hidden border bg-muted/20 flex items-stretch">
-                              {/* Prefer native PDF rendering. If headers force download, the fallback link remains available above. */}
-                              <object data={link} type="application/pdf" className="w-full h-full">
-                                <embed src={link} type="application/pdf" className="w-full h-full" />
-                              </object>
+                              {/* Use hosted PDF.js viewer for robust cross-browser rendering */}
+                              <iframe
+                                src={`https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(link)}`}
+                                className="w-full h-full"
+                                title={`PDF ${resource.title}`}
+                              />
                             </div>
                           </CardContent>
                         ) : null;
