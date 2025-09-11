@@ -11,7 +11,7 @@ const allData = {
         "Applied Mathematics", "Applied Physics", "Programming with C",   "Basics of Electrical and Electronics Engineering", "Communication Skills","Web Application Development"
       ],
       "2": [
-        "Probability and Statistics", "Environmental Sciences", "Data Structures", "Web Application Development", "Soft Skills and Personality Development",
+        "Probability and Statistics", "Environmental Sciences", "Data Structures", "Mobile Application Development", "Soft Skills and Personality Development",
       ],
     },
     "CSE-AI": {
@@ -32,7 +32,7 @@ const allData = {
     },
     "ECE-AI": {
        "1": [
-        "Applied Mathematics",  "Fundamentals of Electrical Sciences","Programming with Python","Electronics Workshop", "Communication Skills","Signals and Systems",
+        "Applied Mathematics",  "Fundamentals of Electrical Sciences","Electronics Workshop", "Communication Skills","Signals and Systems",
       ],
       "2": [
         "Environmental Sciences", "Applied Physics", "Network Analysis and Synthesis", "Introduction to Data Science", "IT Workshop", "Soft Skills and Personality Development",
@@ -43,7 +43,7 @@ const allData = {
         "Applied Mathematics", "Applied Physics", "Programming with Python", "IT Workshop",  "Web Application Development", "Communication Skills",
       ],
       "2": [
-        "Probability and Statistics", "Environmental Sciences", "Object Oriented Programming", "CAD Modelling","Introduction to Data Science", "Soft Skills and Personality Development",
+        "Probability and Statistics", "Environmental Sciences", "Object Oriented Programming","Introduction to Data Science", "Soft Skills and Personality Development",
       ],
     },
     "AI&ML": {
