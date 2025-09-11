@@ -156,8 +156,9 @@ const ResourceDetail = () => {
                         return isPdf ? (
                           <CardContent>
                             <div className="w-full h-[70vh] rounded-md overflow-hidden border">
+                              {/* Use Google Docs Viewer for robust inline PDF rendering */}
                               <iframe
-                                src={resource.link}
+                                src={`https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(resource.link || "")}`}
                                 className="w-full h-full"
                                 title={`Preview ${resource.title}`}
                               />
